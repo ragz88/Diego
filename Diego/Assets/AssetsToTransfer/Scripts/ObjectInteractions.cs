@@ -113,7 +113,7 @@ public class ObjectInteractions : MonoBehaviour {
 
 
         //Raycast resolution ----------------------
-        /*if (liftScript != null && characterControl.lockMovement != true)       //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
+        if (liftScript != null /*&& characterControl.lockMovement != true*/)       //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
         {
             objectToLift = liftScript.gameObject;
             nextToPickup = true;
@@ -148,7 +148,7 @@ public class ObjectInteractions : MonoBehaviour {
                     nextToEnvPushable = false;
                 }
             }
-        }*/
+        }
         //-----------------------------------------
 
 
@@ -159,7 +159,7 @@ public class ObjectInteractions : MonoBehaviour {
             if (nextToPickup && !holdingPickup && !pushingObject && !objectToLift.GetComponent<LiftableObject>().beingCarried)
             {
                 prompt.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))
+                if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)          //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     //lerpingPickup = true;
                     objectToLift.GetComponent<LiftableObject>().beingCarried = true;
@@ -171,7 +171,7 @@ public class ObjectInteractions : MonoBehaviour {
         if (nextToPushable && !holdingPickup && !pushingObject)
         {
             prompt.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))
+            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)              //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 transitioning = true;
                 pushingObject = true;
@@ -205,7 +205,7 @@ public class ObjectInteractions : MonoBehaviour {
             if (envPushable.animPlayed == false)
             {
                 prompt.SetActive(true);
-                if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))
+                if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                                  //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     envPushable.PlayAnim();
                     prompt.SetActive(false);
@@ -221,7 +221,7 @@ public class ObjectInteractions : MonoBehaviour {
 
         if (holdingPickup && !transitioning)
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))
+            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                     //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 //lerpingPickup = false; 
                 dropObject();
@@ -233,7 +233,7 @@ public class ObjectInteractions : MonoBehaviour {
         {
             //print(pushPos.position);
 
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))
+            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)               //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 pushingObject = false;
                 //characterControl.pushing = false;          //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
@@ -280,7 +280,7 @@ public class ObjectInteractions : MonoBehaviour {
         if (holdingPickup && lerpingPickup)
         {
             objectToLift.transform.LookAt(liftPos.position + transform.forward);
-            objectToLift.transform.position = Vector3.Lerp(objectToLift.transform.position, liftPos.position, liftSpeed);
+            objectToLift.transform.position = Vector3.Lerp(objectToLift.transform.position, liftPos.position, liftSpeed*Time.deltaTime);
         }
 
         /*if (pushingObject)
@@ -294,6 +294,7 @@ public class ObjectInteractions : MonoBehaviour {
     {
         Invoke("finishLift", 1.3f);
         holdingPickup = true;
+        lerpingPickup = true;
         objectToLift.GetComponent<Rigidbody>().useGravity = false;
         objectToLift.GetComponent<Rigidbody>().isKinematic = true;
         
@@ -316,7 +317,7 @@ public class ObjectInteractions : MonoBehaviour {
         lerpingPickup = true;
         //objectToLift.GetComponent<Rigidbody>().useGravity = false;
         //objectToLift.GetComponent<Rigidbody>().isKinematic = true;
-        currentLiftSpeed = 4f;
+        currentLiftSpeed = 60f;
         //transitioning = true;
         //objectToLift.GetComponent<LiftableObject>().beingCarried = true;
         //objectToLift.GetComponent<LiftableObject>().Interactions = this;

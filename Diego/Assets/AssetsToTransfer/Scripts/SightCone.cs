@@ -42,7 +42,7 @@ public class SightCone : MonoBehaviour {
                 if (Physics.Raycast(Eye.position, sightPoints[i].position - Eye.position, out rayHit, 12f, sightMask))
                 {
                     //print(rayHit.collider.gameObject.name);
-                    if (rayHit.collider.gameObject.tag == "PlayerBody")
+                    if (rayHit.collider.gameObject.tag == "Player")         //"PlayerBody"
                     {
                         canSeePlayer = true;
                         break;
@@ -74,8 +74,8 @@ public class SightCone : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if ((seeker != null && (seeker.seekState == Seeker.seekerState.Patrol || seeker.seekState == Seeker.seekerState.Returning) && other.gameObject.tag == "PlayerBody") ||
-           (golem != null && ((golem.golState == Golem.golemState.Patrol || golem.golState == Golem.golemState.Returning) && golem.timeSinceDrop > 1.5f) && other.gameObject.tag == "PlayerBody")   )
+        if ((seeker != null && (seeker.seekState == Seeker.seekerState.Patrol || seeker.seekState == Seeker.seekerState.Returning) && other.gameObject.tag == "Player") ||       //PlayerBody
+           (golem != null && ((golem.golState == Golem.golemState.Patrol || golem.golState == Golem.golemState.Returning) && golem.timeSinceDrop > 1.5f) && other.gameObject.tag == "Player")   )//PlayerBody
         {
             for (int i = 0; i < sightPoints.Length; i++)
             {
@@ -83,7 +83,7 @@ public class SightCone : MonoBehaviour {
                 if (Physics.Raycast(Eye.position, sightPoints[i].position - Eye.position, out rayHit, 4f, sightMask))
                 {
                     //print(rayHit.collider.gameObject.name);
-                    if (rayHit.collider.gameObject.tag == "PlayerBody")
+                    if (rayHit.collider.gameObject.tag == "Player")     //PlayerBody
                     {
                         //objInteraction = rayHit.collider.gameObject.GetComponentInChildren<ObjectInteractions>();
                         if (objInteraction.holdingPickup == true && seeker != null)
