@@ -26,8 +26,8 @@ public class Golem: MonoBehaviour {
 
     EyeState eyeState = EyeState.Passive;
 
-    bool blockPresent = false;
-    bool isActive = false;
+    public bool blockPresent = false;
+    public bool isActive = false;
     GameObject energySource;
     LiftableObject energySourceLO;
     public Transform energySourceFinPos;
@@ -52,7 +52,7 @@ public class Golem: MonoBehaviour {
     Color[] PassiveEyeColours;
     Material passiveEyeMat;
     public Image rend;
-    SightCone cone;
+    SightCone cone; 
     float eyeRot = 0;
     Vector3 initEyeRot;
 
@@ -79,6 +79,7 @@ public class Golem: MonoBehaviour {
 
 
     public GameObject cage;
+    public Renderer cageRend;
     public float finalCageScale = 2;
     public float cageSpeed = 2;
     float initCageScale;
@@ -141,7 +142,7 @@ public class Golem: MonoBehaviour {
         }
 
         initCageScale = cage.transform.localScale.x;
-
+        cageRend = cage.GetComponent<Renderer>();
     }
 	
 	// Update is called once per frame
@@ -155,6 +156,7 @@ public class Golem: MonoBehaviour {
 
         if (isActive)
         {
+            cageRend.material.SetTextureOffset("_MainTex", new Vector2(Time.time / 3, 0));
 
             energySource.transform.position = Vector3.Lerp(energySource.transform.position, energySourceFinPos.position,
                     sourceSpeed * Time.deltaTime);
@@ -184,7 +186,7 @@ public class Golem: MonoBehaviour {
                     }
                 }
 
-                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < 0.3f)
+                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < 0.75f)
                 {
                     currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
 
@@ -362,7 +364,7 @@ public class Golem: MonoBehaviour {
                     }
                 }
 
-                if (Vector3.Distance(transform.position, initPatrolPos) < 0.2f)
+                if (Vector3.Distance(transform.position, initPatrolPos) < 0.65f)
                 {
                     golState = golemState.Patrol;
                 }
