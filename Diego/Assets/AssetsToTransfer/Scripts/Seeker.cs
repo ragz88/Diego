@@ -44,6 +44,7 @@ public class Seeker : MonoBehaviour {
     Renderer rend;
     SightCone cone;
     float eyeRot = 0;
+    float[] eyeLightIntensities;
 
     float stdSpeed;
     float stdAngularSpeed;
@@ -83,11 +84,13 @@ public class Seeker : MonoBehaviour {
         chaseAngularSpeed = stdAngularSpeed * angularSpeedMultiplier;
 
         PassiveEyeColours = new Color[eyeLights.Length];
+        eyeLightIntensities = new float[eyeLights.Length];
 
         for (int i = 0; i < eyeLights.Length; i++)
         {
             //print(eyeLights[i].color);
             PassiveEyeColours[i] = eyeLights[i].color;
+            eyeLightIntensities[i] = eyeLights[i].intensity;
         }
         rend = Eye.GetComponent<Renderer>();
         //print(rend.material);
@@ -102,6 +105,12 @@ public class Seeker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        for (int i = 0; i < eyeLights.Length; i++)
+        {
+            eyeLights[i].intensity = eyeLightIntensities[i];
+        }
+
         if (seekState == seekerState.Patrol)
         {
             if (beeper.isPlaying && beeper.clip == alarm)
