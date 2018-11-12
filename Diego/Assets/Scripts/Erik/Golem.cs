@@ -156,7 +156,7 @@ public class Golem: MonoBehaviour {
 
         if (isActive)
         {
-            cageRend.material.SetTextureOffset("_MainTex", new Vector2(Time.time / 3, 0));
+            //cageRend.material.SetTextureOffset("_MainTex", new Vector2(Time.time / 3, 0));
 
             energySource.transform.position = Vector3.Lerp(energySource.transform.position, energySourceFinPos.position,
                     sourceSpeed * Time.deltaTime);

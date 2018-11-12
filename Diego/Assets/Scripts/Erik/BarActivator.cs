@@ -9,16 +9,16 @@ public class BarActivator : MonoBehaviour {
 	public LoadingBar[] bars;
 
     public bool testActivator = false;
-    public float startIntensity = 1;
-    public float endIntensity = 60;
-    public float intensityChangeSpeed = 0.25f;
+    //public float startIntensity = 1;
+    //public float endIntensity = 60;
+    //public float intensityChangeSpeed = 0.25f;
     public MovableObjects[] movingObjects;
     public Transform lockPoint;
 
     bool isActive = false;
-    float padIntensity = 1;
+    //float padIntensity = 1;
 
-    public Renderer ActivatorPadRend;
+    //public Renderer ActivatorPadRend;
 
 	// Use this for initialization
 	void Start () {
@@ -45,7 +45,7 @@ public class BarActivator : MonoBehaviour {
             }
         }
 
-        if (isActive)
+        /*if (isActive)
         {
             if (padIntensity < endIntensity)
             {
@@ -60,7 +60,7 @@ public class BarActivator : MonoBehaviour {
                 padIntensity -= intensityChangeSpeed;
                 ActivatorPadRend.material.SetFloat("Vector1_56A74A91", padIntensity);      //this is the fresnel strength
             }
-        }
+        }*/
 
 
 	}
