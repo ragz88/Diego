@@ -12,6 +12,7 @@ public class LiftableObject : MonoBehaviour {
     public ObjectInteractions Interactions;
     public float dissolveTime = 1;
     public GameObject dissolveEffects;
+    public GameObject partAttractor;
     //public ErikParticleAttractorLinear partAttractor;
     Outline outline;
 
@@ -21,6 +22,7 @@ public class LiftableObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        partAttractor.transform.parent = null;
         if (useStartingPos)
         {
             initialPos = transform.position;
@@ -49,9 +51,10 @@ public class LiftableObject : MonoBehaviour {
         anim.SetBool("Dissolve", true);
         Invoke("Undissolve", 0.1f);
         Invoke("ReturnToInit", dissolveTime/2);
-        GameObject tempEffects = Instantiate(dissolveEffects, transform.position, Quaternion.identity) as GameObject;
+        //GameObject tempEffects = Instantiate(dissolveEffects, transform.position, Quaternion.identity) as GameObject;
+        dissolveEffects.GetComponent<ParticleSystem>().Play();
         //tempEffects.GetComponentInChildren<particleAttractorLinear>().target = partAttractorTrans;
-        tempEffects.transform.LookAt(initialPos);
+        //tempEffects.transform.LookAt(initialPos);
         dissolveSound.Play();
     }
 
@@ -64,6 +67,7 @@ public class LiftableObject : MonoBehaviour {
     public void ReturnToInit()
     {
         Invoke("resetBeingCarried", dissolveTime / 2);
+        //dissolveEffects.GetComponent<ParticleSystem>().Pause();
         //anim.SetBool("Undissolve", false);
         //Interactions.dropObject();
         transform.position = initialPos;
