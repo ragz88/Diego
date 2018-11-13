@@ -135,7 +135,7 @@ public class MovableObjects : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "PlayerBody")
+        if (other.gameObject.tag == "Player")
         {
             other.gameObject.transform.parent = transform;
         }
@@ -143,7 +143,7 @@ public class MovableObjects : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "PlayerBody")
+        if (other.gameObject.tag == "Player")
         {
             other.gameObject.transform.parent = null;
         }
