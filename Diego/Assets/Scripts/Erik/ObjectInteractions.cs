@@ -159,6 +159,8 @@ public class ObjectInteractions : MonoBehaviour {
             if (nextToPickup && !holdingPickup && !pushingObject && !objectToLift.GetComponent<LiftableObject>().beingCarried)
             {
                 prompt.SetActive(true);
+                objectToLift.GetComponent<Outline>().enabled = true;
+                objectToLift.GetComponent<LiftableObject>().inRange = true;
                 if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)          //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     //lerpingPickup = true;
@@ -205,6 +207,8 @@ public class ObjectInteractions : MonoBehaviour {
             if (envPushable.animPlayed == false)
             {
                 prompt.SetActive(true);
+                envPushable.GetComponent<Outline>().enabled = true;
+                envPushable.inRange = true;
                 if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                                  //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     envPushable.PlayAnim();

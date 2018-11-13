@@ -9,6 +9,17 @@ Properties {
 	_MainTex ("_MainTex RGBA", 2D) = "white" {}
 	_Distort ("_Distort A", 2D) = "white" {}
 	_LavaTex ("_LavaTex RGB", 2D) = "white" {}
+
+	[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
+	_Color("Tint", Color) = (1,1,1,1)
+
+	// required for UI.Mask
+	_StencilComp("Stencil Comparison", Float) = 7.1
+	_Stencil("Stencil ID", Float) = 2
+	_StencilOp("Stencil Operation", Float) = 2
+	_StencilWriteMask("Stencil Write Mask", Float) = 255
+	_StencilReadMask("Stencil Read Mask", Float) = 255
+	_ColorMask("Color Mask", Float) = 15
 }
 
 Category {
@@ -17,6 +28,18 @@ Category {
 	Lighting Off
 	
 	SubShader {
+
+		// required for UI.Mask
+		Stencil
+		{
+			Ref[_Stencil]
+			Comp[_StencilComp]
+			Pass[_StencilOp]
+			ReadMask[_StencilReadMask]
+			WriteMask[_StencilWriteMask]
+		}
+		ColorMask[_ColorMask]
+
 		Pass {
 		
 			CGPROGRAM

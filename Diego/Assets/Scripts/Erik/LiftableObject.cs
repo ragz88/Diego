@@ -8,10 +8,12 @@ public class LiftableObject : MonoBehaviour {
     public bool useStartingPos = true;
     //public Transform partAttractorTrans;
     public bool beingCarried = false;
+    public bool inRange = false;
     public ObjectInteractions Interactions;
     public float dissolveTime = 1;
     public GameObject dissolveEffects;
     //public ErikParticleAttractorLinear partAttractor;
+    Outline outline;
 
     Animator anim;
 
@@ -26,14 +28,20 @@ public class LiftableObject : MonoBehaviour {
         anim = gameObject.GetComponent<Animator>();
         dissolveSound = gameObject.GetComponent<AudioSource>();
         //dissolveTime = 2 * (anim.);
+        outline = GetComponent<Outline>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.K))
+		/*if (Input.GetKeyDown(KeyCode.K))
         {
             Dissolve();
+        }*/
+        if (beingCarried || !inRange)
+        {
+            outline.enabled = false;
         }
+        inRange = false;
 	}
 
     public void Dissolve()

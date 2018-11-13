@@ -8,17 +8,25 @@ public class EnvironmentalPushable : MonoBehaviour {
 
     [HideInInspector]
     public bool animPlayed = false;
+    public bool inRange = false;
     public GameObject[] objectsToActivate;
+    Outline outline;
 
 	// Use this for initialization
 	void Start () {
         anim = gameObject.GetComponent<Animator>();
+        outline = GetComponent<Outline>();
         //anim.StopPlayback();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (!inRange)
+        {
+            outline.enabled = false;
+        }
+
+        inRange = false;
 	}
 
     private void OnTriggerStay(Collider other)
