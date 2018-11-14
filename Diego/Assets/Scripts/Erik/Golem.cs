@@ -253,7 +253,7 @@ public class Golem: MonoBehaviour {
 
                 //if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 15f)   //Change to hide out of sight
                 //{
-                if (Vector3.Distance(diegoTarget.transform.position, transform.position) < 2.85f)
+                if (Vector3.Distance(diegoTarget.transform.position, transform.position) < 3.3f)
                 {
                     golState = golemState.Lifting;
                     //diegoMoveBehav = diegoTarget.GetComponent<MoveBehaviour>();         //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////

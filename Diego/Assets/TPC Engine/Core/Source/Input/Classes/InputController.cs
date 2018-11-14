@@ -76,16 +76,16 @@ namespace TPCEngine
 			Cursor.lockState = CursorLockMode.Locked;
 			while (true)
 			{
-				if (TPCInput.GetButtonDown("Menu") && !Cursor.visible)
+				/*if (TPCInput.GetButtonDown("Menu") && !Cursor.visible)
 				{
 					Cursor.lockState = CursorLockMode.None;
 					Cursor.visible = true;
 				}
-				else if (TPCInput.GetButtonDown("Menu") && Cursor.visible)
+				/*else if (TPCInput.GetButtonDown("Menu") && Cursor.visible)
 				{
 					Cursor.lockState = CursorLockMode.Locked;
 					Cursor.visible = false;
-				}
+				}*/
 				yield return null;
 			}
 		}
