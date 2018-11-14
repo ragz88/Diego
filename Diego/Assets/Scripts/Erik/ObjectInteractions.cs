@@ -9,6 +9,7 @@ public class ObjectInteractions : MonoBehaviour {
     //public string[] pickupTags;
     public bool enemy = false;
     public GameObject prompt;
+    public Image promptPic;
     public Transform liftPos;
     public Transform pushPos;
     public float liftSpeed = 0.1f;
@@ -48,6 +49,7 @@ public class ObjectInteractions : MonoBehaviour {
         //promptText = prompt.GetComponent<Text>();
         //characterControl = gameObject.GetComponent<MoveBehaviour>();                 //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
         //character = gameObject.GetComponentInParent<ThirdPersonCharacter>();
+        
     }
 	
 	// Update is called once per frame
@@ -158,7 +160,15 @@ public class ObjectInteractions : MonoBehaviour {
         {
             if (nextToPickup && !holdingPickup && !pushingObject && !objectToLift.GetComponent<LiftableObject>().beingCarried)
             {
-                prompt.SetActive(true);
+                if (!enemy)
+                {
+                    prompt.SetActive(true);
+                    prompt.GetComponent<ParticleSystem>().Play();
+                    if (promptPic.color.a < 1f)
+                    {
+                        promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a + (Time.deltaTime * 2));
+                    }
+                }
                 objectToLift.GetComponent<Outline>().enabled = true;
                 objectToLift.GetComponent<LiftableObject>().inRange = true;
                 if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)          //Urgent -- Must Repair//////////////////////////////////////////////////
@@ -172,7 +182,15 @@ public class ObjectInteractions : MonoBehaviour {
 
         if (nextToPushable && !holdingPickup && !pushingObject)
         {
-            prompt.SetActive(true);
+            if (!enemy)
+            {
+                prompt.SetActive(true);
+                prompt.GetComponent<ParticleSystem>().Play();
+                if (promptPic.color.a < 1f)
+                {
+                    promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a + (Time.deltaTime * 2));
+                }
+            }
             if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)              //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 transitioning = true;
@@ -206,13 +224,26 @@ public class ObjectInteractions : MonoBehaviour {
         {
             if (envPushable.animPlayed == false)
             {
-                prompt.SetActive(true);
+                if (!enemy)
+                {
+                    prompt.SetActive(true);
+                    prompt.GetComponent<ParticleSystem>().Play();
+                    if (promptPic.color.a < 1f)
+                    {
+                        promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a + (Time.deltaTime * 2));
+                    }
+                }
                 envPushable.GetComponent<Outline>().enabled = true;
                 envPushable.inRange = true;
                 if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                                  //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     envPushable.PlayAnim();
                     prompt.SetActive(false);
+                    prompt.GetComponent<ParticleSystem>().Pause();
+                    if (promptPic.color.a > 0f)
+                    {
+                        promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a - (Time.deltaTime * 2));
+                    }
                 }
             }
 
@@ -220,7 +251,15 @@ public class ObjectInteractions : MonoBehaviour {
 
         if ((!nextToPickup && !nextToPushable && !nextToEnvPushable) || holdingPickup || pushingObject)
         {
-            prompt.SetActive(false);
+            if (!enemy)
+            {
+                prompt.SetActive(false);
+                prompt.GetComponent<ParticleSystem>().Pause();
+                if (promptPic.color.a > 0f)
+                {
+                    promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a - (Time.deltaTime * 2));
+                }
+            }
         }
 
         if (holdingPickup && !transitioning)

@@ -184,7 +184,7 @@ public class Seeker : MonoBehaviour {
 
             //if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 15f)   //Change to hide out of sight
             //{
-                if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 2.85f)
+                if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 3.25f)
                 {
                     seekState = seekerState.Destroying;
                     agent.SetDestination(transform.position);
