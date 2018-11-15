@@ -21,7 +21,7 @@ public class PauseControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape))
+		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Menu"))
         {
             /*if (paused)
             {
@@ -39,6 +39,11 @@ public class PauseControl : MonoBehaviour {
             }
             paused = !paused;
             initButton.Select();
+        }
+
+        if (paused && Input.GetButtonDown("Cancel"))
+        {
+            UnPause();
         }
 
         if (paused)
