@@ -8,6 +8,8 @@ public class LiftableObject : MonoBehaviour {
     public bool useStartingPos = true;
     //public Transform partAttractorTrans;
     public bool beingCarried = false;
+    float lightDelay = 0;
+    public GameObject lightProjector;
     public bool inRange = false;
     public ObjectInteractions Interactions;
     public float dissolveTime = 1;
@@ -44,6 +46,29 @@ public class LiftableObject : MonoBehaviour {
             outline.enabled = false;
         }
         inRange = false;
+
+        if (beingCarried)
+        {
+            if (lightDelay < 0.8f && !lightProjector.activeSelf)
+            {
+                lightDelay += Time.deltaTime;
+            }
+            else
+            {
+                lightProjector.SetActive(true);
+            }
+        }
+        else
+        {
+            if (lightDelay > 0f && lightProjector.activeSelf)
+            {
+                lightDelay -= 3*Time.deltaTime;
+            }
+            else
+            {
+                lightProjector.SetActive(false);
+            }
+        }
 	}
 
     public void Dissolve()

@@ -844,7 +844,7 @@ namespace TPCEngine.Editor
 				if (configPos.Contains(Event.current.mousePosition))
 				{
 					_editingPositiveKey = false;
-					_editingPositiveKey = false;
+					_editingNegativeKey = false;
 					_editingAltPositiveKey = false;
 					_editingAltNegativeKey = false;
 					_keyString = string.Empty;
