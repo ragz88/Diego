@@ -72,7 +72,7 @@ public class MovableObjects : MonoBehaviour {
             {
                 if (Vector3.Distance(lastPos, transform.position) < Vector3.Distance(movePoints[destinationNum], transform.position))
                 {
-                    if (movementSpeed < Vector3.Distance(lastPos, transform.position))
+                    if (movementSpeed < Vector3.Distance(lastPos, transform.position) || movementSpeed < Time.deltaTime * slowOutSpeed)
                     {
                         movementSpeed += (Time.deltaTime * slowOutSpeed);
                         if (movementSpeed > initMoveSpeed)
@@ -86,7 +86,7 @@ public class MovableObjects : MonoBehaviour {
                     if (movementSpeed > Vector3.Distance(movePoints[destinationNum], transform.position))
                     {
                         movementSpeed -= (Time.deltaTime * slowInSpeed);
-                        if (movementSpeed <= 0)
+                        if (movementSpeed <= Time.deltaTime * slowInSpeed)
                         {
                             movementSpeed = Time.deltaTime * slowInSpeed;
                         }
@@ -120,6 +120,22 @@ public class MovableObjects : MonoBehaviour {
         {
             if (returnOnInactive && !isActive)
             {
+                if (Vector3.Distance(initPos, transform.position) < initMoveSpeed)
+                {
+                    if (movementSpeed > Vector3.Distance(initPos, transform.position))
+                    {
+                        movementSpeed -= (Time.deltaTime * slowInSpeed);
+                        if (movementSpeed <= Time.deltaTime * slowInSpeed)
+                        {
+                            movementSpeed = Time.deltaTime * slowInSpeed;
+                        }
+                    }
+                }
+                else
+                {
+                    movementSpeed = initMoveSpeed;
+                }
+                
                 if (Vector3.Distance(transform.position, initPos) > stoppingDistance)
                 {
                     //transform.position = Vector3.Lerp(transform.position, initPos, (movementSpeed * Time.deltaTime));
