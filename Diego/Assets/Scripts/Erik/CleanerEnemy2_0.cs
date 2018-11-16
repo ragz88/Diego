@@ -207,7 +207,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
                 }
                 else
                 {
-                    if (Physics.Raycast(transform.position, transform.forward, out rayHit, 2f, rayMask))
+                    if (Physics.Raycast(transform.position, transform.forward, out rayHit, 2.2f, rayMask))
                     {
                         if ((rayHit.collider.gameObject.tag == "Wall" || rayHit.collider.gameObject.tag == "Pushable") && !isTurning && (Vector3.Angle(transform.forward, moveTransforms[currentPos].position - transform.position) < 5f))
                         {
@@ -242,6 +242,48 @@ public class CleanerEnemy2_0 : MonoBehaviour
                                 if (initHerbPos == new Vector3(0, 25, 0))
                                 {
                                     initHerbPos = transform.position;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (Physics.Raycast(transform.position, transform.forward + transform.up*0.2f, out rayHit, 2.2f, rayMask))
+                        {
+                            if ((rayHit.collider.gameObject.tag == "Wall" || rayHit.collider.gameObject.tag == "Pushable") && !isTurning && (Vector3.Angle(transform.forward, moveTransforms[currentPos].position - transform.position) < 5f))
+                            {
+                                beeper.clip = wallBeep;
+                                beeper.Play();
+                                isTurning = true;
+                                currentPos = (currentPos + turnDirectionInt) % 4;
+                                if (currentPos == -1)
+                                {
+                                    currentPos = moveTransforms.Length - 1;
+                                }
+                                agent.SetDestination(moveTransforms[currentPos].position);
+                                //initDir = transform.rotation;
+                                agent.speed = 0.1f;
+                                Invoke("resetSpeed", 1f);
+                            }
+                            else
+                            if (rayHit.collider.gameObject.tag == "EnergySource")
+                            {
+                                //pick up block here
+                                source = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+                                if (Vector3.Distance(source.initialPos, source.transform.position) > 3 && !source.beingCarried)
+                                {
+                                    beeper.clip = barBeep;
+                                    beeper.Play();
+                                    cleanBotState = botState.Lifting;
+                                    objectToLift = rayHit.collider.gameObject;
+
+                                    agent.speed = 0.1f;
+                                    isTurning = true;
+                                    Invoke("resetSpeed", 0.5f);
+                                    if (initHerbPos == new Vector3(0, 25, 0))
+                                    {
+                                        initHerbPos = transform.position;
+                                    }
                                 }
                             }
                         }
