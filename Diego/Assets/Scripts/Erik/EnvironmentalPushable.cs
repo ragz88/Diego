@@ -31,8 +31,9 @@ public class EnvironmentalPushable : MonoBehaviour {
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "PlayerBody")
+        if (other.gameObject.tag == "Player")
         {
+            outline.enabled = true;
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact")) && !animPlayed)
             {
                 PlayAnim();
@@ -54,6 +55,7 @@ public class EnvironmentalPushable : MonoBehaviour {
             {
                 objectsToActivate[i].SetActive(true);
             }
+            outline.enabled = false;
             Destroy(this);
         }
     }
