@@ -47,10 +47,10 @@ public class Golem: MonoBehaviour {
     //public float eyeSwaySpeed = 0.01f;
     //public float maxEyeSwayAngle = 30;
     public Color[] lockedOnEyeColours;
-    public Material lockedOnEyeMat;
+    //public Material lockedOnEyeMat;
     public Light[] eyeLights;
     Color[] PassiveEyeColours;
-    Material passiveEyeMat;
+    //Material passiveEyeMat;
     public Image rend;
     SightCone cone; 
     float eyeRot = 0;
@@ -122,7 +122,7 @@ public class Golem: MonoBehaviour {
         }
         //rend = Eye.GetComponentInParent<Renderer>();
         //print(rend.material);
-        passiveEyeMat = rend.material;
+        //passiveEyeMat = rend.material;
 
         //myObjectHandler = gameObject.GetComponent<ObjectInteractions>();
 
@@ -136,19 +136,29 @@ public class Golem: MonoBehaviour {
         energySourceFinPos.localScale = new Vector3(1/transform.localScale.x, 1 / transform.localScale.y, 1 / transform.localScale.z);
 
         initLightIntensity = new float[eyeLights.Length];
-        for (int i = 0; i < eyeLights.Length; i++)
-        {
-            initLightIntensity[i] = eyeLights[i].intensity;
-        }
+        //for (int i = 0; i < eyeLights.Length; i++)
+        //{
+        initLightIntensity[0] = 3.75f;
+        initLightIntensity[1] = 9.5f;
+        initLightIntensity[2] = 60;
+        initLightIntensity[3] = 40;
+        //}
 
         initCageScale = cage.transform.localScale.x;
         cageRend = cage.GetComponent<Renderer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        
+    // Update is called once per frame
+    void Update() {
+
+        for (int i = 0; i < eyeLights.Length; i++)
+        {
+            if (eyeLights[i].intensity > initLightIntensity[i])
+            {
+                eyeLights[i].intensity = initLightIntensity[i];
+            }
+        }
+
         if (!blockPresent)
         {
             isActive = false;
@@ -156,6 +166,7 @@ public class Golem: MonoBehaviour {
 
         if (isActive)
         {
+
             //cageRend.material.SetTextureOffset("_MainTex", new Vector2(Time.time / 3, 0));
 
             energySource.transform.position = Vector3.Lerp(energySource.transform.position, energySourceFinPos.position,
@@ -186,7 +197,7 @@ public class Golem: MonoBehaviour {
                     }
                 }
 
-                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < 0.75f)
+                if (Vector3.Distance(transform.position, patrolPoints[currentPatrolPoint].position) < 1f)
                 {
                     currentPatrolPoint = (currentPatrolPoint + 1) % patrolPoints.Length;
 
@@ -245,7 +256,7 @@ public class Golem: MonoBehaviour {
                     {
                         eyeLights[i].color = lockedOnEyeColours[i];
                     }
-                    rend.material = lockedOnEyeMat;
+                    //rend.material = lockedOnEyeMat;
                 }
 
                 agent.speed = chaseSpeed;
@@ -348,7 +359,7 @@ public class Golem: MonoBehaviour {
                     {
                         eyeLights[i].color = PassiveEyeColours[i];
                     }
-                    rend.material = passiveEyeMat;
+                    //rend.material = passiveEyeMat;
                 }
 
                 if (beeper.isPlaying)
@@ -364,7 +375,7 @@ public class Golem: MonoBehaviour {
                     }
                 }
 
-                if (Vector3.Distance(transform.position, initPatrolPos) < 0.65f)
+                if (Vector3.Distance(transform.position, initPatrolPos) < 1f)
                 {
                     golState = golemState.Patrol;
                 }
@@ -397,7 +408,7 @@ public class Golem: MonoBehaviour {
                 {
                     eyeLights[i].color = PassiveEyeColours[i];
                 }
-                rend.material = passiveEyeMat;
+                //rend.material = passiveEyeMat;
             }
 
             golState = golemState.Patrol;
@@ -418,7 +429,14 @@ public class Golem: MonoBehaviour {
                 {
                     if (eyeLights[i].intensity < initLightIntensity[i])
                     {
-                        eyeLights[i].intensity += Time.deltaTime*30;
+                        if (i < 2)
+                        {
+                            eyeLights[i].intensity += Time.deltaTime * 3;
+                        }
+                        else
+                        {
+                            eyeLights[i].intensity += Time.deltaTime * 8;
+                        }
                     }
                 }
                 if (rend.fillAmount < 1)
@@ -432,7 +450,15 @@ public class Golem: MonoBehaviour {
                 {
                     if (eyeLights[i].intensity > 0)
                     {
-                        eyeLights[i].intensity -= Time.deltaTime*30;
+                        if (i < 2)
+                        {
+                            eyeLights[i].intensity -= Time.deltaTime * 3;
+                        }
+                        else
+                        {
+                            eyeLights[i].intensity -= Time.deltaTime * 8;
+                        }
+                        
                     }
                 }
                 if (rend.fillAmount > 0)
