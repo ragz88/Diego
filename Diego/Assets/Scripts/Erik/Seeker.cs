@@ -90,6 +90,7 @@ public class Seeker : MonoBehaviour {
 
         for (int i = 0; i < eyeLights.Length; i++)
         {
+            eyeLights[i].enabled = true;
             //print(eyeLights[i].color);
             PassiveEyeColours[i] = eyeLights[i].color;
          //   eyeLightIntensities[i] = eyeLights[i].intensity;
@@ -111,7 +112,7 @@ public class Seeker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        eyeLights[0].intensity = 8;
+        eyeLights[0].intensity = 7;
 
         //for (int i = 0; i < eyeLights.Length; i++)
         //{

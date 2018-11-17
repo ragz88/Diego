@@ -118,6 +118,7 @@ public class Golem: MonoBehaviour {
         for (int i = 0; i < eyeLights.Length; i++)
         {
             //print(eyeLights[i].color);
+            eyeLights[i].enabled = true;
             PassiveEyeColours[i] = eyeLights[i].color;
         }
         //rend = Eye.GetComponentInParent<Renderer>();
@@ -138,8 +139,8 @@ public class Golem: MonoBehaviour {
         initLightIntensity = new float[eyeLights.Length];
         //for (int i = 0; i < eyeLights.Length; i++)
         //{
-        initLightIntensity[0] = 3.75f;
-        initLightIntensity[1] = 9.5f;
+        initLightIntensity[0] = 3.5f;
+        initLightIntensity[1] = 8f;
         initLightIntensity[2] = 60;
         initLightIntensity[3] = 40;
         //}
