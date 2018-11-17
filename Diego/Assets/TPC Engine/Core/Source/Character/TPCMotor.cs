@@ -137,8 +137,8 @@ namespace TPCEngine
 
 		public virtual void StrafeMovement()
 		{
-			speed = Mathf.Clamp(TPCInput.GetAxis("Vertical"), -1, 1);
-			direction = Mathf.Clamp(TPCInput.GetAxis("Horizontal"), -1, 1);
+			speed = Mathf.Clamp(Input.GetAxis("Vertical"), -1, 1);
+			direction = Mathf.Clamp(Input.GetAxis("Horizontal"), -1, 1);
 		}
 
 		public virtual void FreeMovement()
@@ -185,7 +185,7 @@ namespace TPCEngine
 
 				if (isStrafing)
 				{
-					Vector3 v = (transform.TransformDirection(new Vector3(TPCInput.GetAxis("Horizontal"), 0, TPCInput.GetAxis("Vertical"))) * (velocity > 0 ? velocity : 1f));
+					Vector3 v = (transform.TransformDirection(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))) * (velocity > 0 ? velocity : 1f));
 					v.y = rigidbody.velocity.y;
 					rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, v, 20f * Time.deltaTime);
 				}
@@ -246,9 +246,10 @@ namespace TPCEngine
 
 		private void SprintHandler()
 		{
-			isSprinting = TPCInput.GetButton("Sprint");
+            //isSprinting = TPCInput.GetButton("Sprint");
+            isSprinting = Input.GetButton("ControlSprint");
 
-			if (MoveAmount > 0 && isSprinting)
+            if (MoveAmount > 0 && isSprinting)
             {
                 if (speed > 0)
                     speed = 2;
@@ -328,7 +329,7 @@ namespace TPCEngine
 
 		private void JumpHandler()
 		{
-			if (TPCInput.GetButtonDown("Jump"))
+			if (TPCInput.GetButtonDown("Jump") || Input.GetButtonDown("ControlJump"))
 				Jump();
 		}
 
@@ -347,11 +348,11 @@ namespace TPCEngine
 			float capsuleHeight = colliderHeight;
 			float capsuleVelociy = wasColliderVelocityCenter;
 
-			if (TPCInput.GetButtonDown("Crouch") && !isCrouching)
+			if ((TPCInput.GetButtonDown("Crouch") || Input.GetButtonDown("ControlCrouch")) && !isCrouching)
 			{
 				isCrouching = !isCrouching;
 			}
-			else if(TPCInput.GetButtonDown("Crouch") && isCrouching)
+			else if((TPCInput.GetButtonDown("Crouch") || Input.GetButtonDown("ControlCrouch")) && isCrouching)
 			{
 				if (!Physics.Raycast(transform.position, Vector3.up, colliderHeight))
 				{
@@ -485,7 +486,7 @@ namespace TPCEngine
                 return false;
 
 			RaycastHit _hit = new RaycastHit();
-			Vector3 _movementDirection = isStrafing && MoveAmount > 0 ? (transform.right * TPCInput.GetAxis("Horizontal") + transform.forward * TPCInput.GetAxis("Vertical")).normalized : transform.forward;
+			Vector3 _movementDirection = isStrafing && MoveAmount > 0 ? (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical")).normalized : transform.forward;
 			Ray rayStep = new Ray((transform.position + new Vector3(0, stepOffsetEnd, 0) + _movementDirection * ((capsuleCollider).radius + 0.05f)), Vector3.down);
 
 			if (Physics.Raycast(rayStep, out _hit, stepOffsetEnd - stepOffsetStart, groundLayer) && !_hit.collider.isTrigger)
@@ -527,11 +528,11 @@ namespace TPCEngine
 				Vector3 right = keepDirection ? referenceTransform.right : referenceTransform.TransformDirection(Vector3.right);
 
 				// determine the direction the player will face based on input and the referenceTransform's right and forward directions
-				targetDirection = TPCInput.GetAxis("Horizontal") * right + TPCInput.GetAxis("Vertical") * forward;
+				targetDirection = Input.GetAxis("Horizontal") * right + Input.GetAxis("Vertical") * forward;
 			}
 			else
 			{
-				targetDirection = keepDirection ? targetDirection : new Vector3(TPCInput.GetAxis("Horizontal"), 0, TPCInput.GetAxis("Vertical"));
+				targetDirection = keepDirection ? targetDirection : new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 			}
 
 		}
@@ -592,7 +593,7 @@ namespace TPCEngine
 		{
 			get
 			{
-				return Mathf.Clamp01(Mathf.Abs(TPCInput.GetAxis("Vertical")) + Mathf.Abs(TPCInput.GetAxis("Horizontal")));
+				return Mathf.Clamp01(Mathf.Abs(Input.GetAxis("Vertical")) + Mathf.Abs(Input.GetAxis("Horizontal")));
 			}
 		}
 
@@ -600,11 +601,11 @@ namespace TPCEngine
         {
             return IsCrouching;
         }
-		#endregion
+        #endregion
 
-		#region [Properties]
+        #region [Properties]
 
-		public Transform CharacterTransform { get { return transform; } }
+        public Transform CharacterTransform { get { return transform; } }
 
 		/// <summary>
 		/// 

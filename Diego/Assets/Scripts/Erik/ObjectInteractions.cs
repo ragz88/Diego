@@ -171,7 +171,7 @@ public class ObjectInteractions : MonoBehaviour {
                 }
                 objectToLift.GetComponent<Outline>().enabled = true;
                 objectToLift.GetComponent<LiftableObject>().inRange = true;
-                if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)          //Urgent -- Must Repair//////////////////////////////////////////////////
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))          //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     //lerpingPickup = true;
                     objectToLift.GetComponent<LiftableObject>().beingCarried = true;
@@ -191,7 +191,7 @@ public class ObjectInteractions : MonoBehaviour {
                     promptPic.color = new Color(promptPic.color.r, promptPic.color.g, promptPic.color.b, promptPic.color.a + (Time.deltaTime * 2));
                 }
             }
-            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)              //Urgent -- Must Repair//////////////////////////////////////////////////
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))              //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 transitioning = true;
                 pushingObject = true;
@@ -235,7 +235,7 @@ public class ObjectInteractions : MonoBehaviour {
                 }
                 envPushable.GetComponent<Outline>().enabled = true;
                 envPushable.inRange = true;
-                if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                                  //Urgent -- Must Repair//////////////////////////////////////////////////
+                if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))                                  //Urgent -- Must Repair//////////////////////////////////////////////////
                 {
                     envPushable.PlayAnim();
                     prompt.SetActive(false);
@@ -264,7 +264,7 @@ public class ObjectInteractions : MonoBehaviour {
 
         if (holdingPickup && !transitioning)
         {
-            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)                     //Urgent -- Must Repair//////////////////////////////////////////////////
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))                     //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 //lerpingPickup = false; 
                 dropObject();
@@ -276,7 +276,7 @@ public class ObjectInteractions : MonoBehaviour {
         {
             //print(pushPos.position);
 
-            if (Input.GetKeyDown(KeyCode.E) /*|| Input.GetButtonDown("Interact")*/)               //Urgent -- Must Repair//////////////////////////////////////////////////
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact"))               //Urgent -- Must Repair//////////////////////////////////////////////////
             {
                 pushingObject = false;
                 //characterControl.pushing = false;          //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////

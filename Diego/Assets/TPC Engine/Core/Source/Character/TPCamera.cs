@@ -100,8 +100,8 @@ namespace TPCEngine
 
         protected virtual void CameraHandle()
         {
-            float vertical = TPCInput.GetAxis("Mouse X");
-            float horizontal = TPCInput.GetAxis("Mouse Y");
+            float vertical = Input.GetAxis(/*"Mouse X"*/ "Control Y");
+            float horizontal = Input.GetAxis(/*"Mouse Y"*/ "Control X");
 
             RotateCamera(vertical, horizontal);
 
