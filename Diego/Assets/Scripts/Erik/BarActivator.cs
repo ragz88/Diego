@@ -29,7 +29,7 @@ public class BarActivator : MonoBehaviour {
 	void Update () {
         if (testActivator)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            /*if (Input.GetKeyDown(KeyCode.F))
             {
                 for (int i = 0; i < bars.Length; i++)
                 {
@@ -42,7 +42,7 @@ public class BarActivator : MonoBehaviour {
                 {
                     bars[i].Empty();
                 }
-            }
+            }*/
         }
 
         /*if (isActive)
