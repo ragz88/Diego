@@ -23,7 +23,7 @@ namespace TPCEngine
 	{
         #region [Variables are editable in the inspector]
         [SerializeField] private TPCamera characterCamera;
-		[SerializeField] private TPCMotor characterMotor = new TPCMotor();
+		[SerializeField] public TPCMotor characterMotor = new TPCMotor();
 		[SerializeField] private TPCInverseKinematics inverseKinematics = new TPCInverseKinematics();
 		#endregion
 

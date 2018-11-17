@@ -47,6 +47,7 @@ public class Seeker : MonoBehaviour {
     float initEyeXRot;
     float initEyeZRot;
     //float[] eyeLightIntensities;
+    public float destroyDist = 3.25f;
 
     float stdSpeed;
     float stdAngularSpeed;
@@ -192,7 +193,7 @@ public class Seeker : MonoBehaviour {
 
             //if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 15f)   //Change to hide out of sight
             //{
-                if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 3.25f)
+                if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < destroyDist)
                 {
                     seekState = seekerState.Destroying;
                     agent.SetDestination(transform.position);

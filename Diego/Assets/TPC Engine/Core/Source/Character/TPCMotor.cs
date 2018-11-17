@@ -595,6 +595,11 @@ namespace TPCEngine
 				return Mathf.Clamp01(Mathf.Abs(TPCInput.GetAxis("Vertical")) + Mathf.Abs(TPCInput.GetAxis("Horizontal")));
 			}
 		}
+
+        public bool getIsCrouching()
+        {
+            return IsCrouching;
+        }
 		#endregion
 
 		#region [Properties]
