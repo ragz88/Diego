@@ -20,6 +20,6 @@ public class EnemySphere : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         outerSphere.transform.position = Vector3.Lerp(outerSphere.transform.position, sphere.transform.position, sphereAlignSpeed * Time.deltaTime);
-        outerSphere.transform.RotateAround(outerSphere.transform.position, sphere.transform.right, agent.velocity.magnitude * 100 * Time.deltaTime);
+        outerSphere.transform.RotateAround(sphere.transform.position, sphere.transform.right, agent.velocity.magnitude * 100 * Time.deltaTime);
     }
 }

@@ -37,14 +37,16 @@ public class Seeker : MonoBehaviour {
     public float eyeSwaySpeed = 0.01f;
     public float maxEyeSwayAngle = 30;
     public Color[] lockedOnEyeColours;
-    public Material lockedOnEyeMat;
+    //public Material lockedOnEyeMat;
     public Light[] eyeLights;
     Color[] PassiveEyeColours;
-    Material passiveEyeMat;
+    //Material passiveEyeMat;
     Renderer rend;
     SightCone cone;
     float eyeRot = 0;
-    float[] eyeLightIntensities;
+    float initEyeXRot;
+    float initEyeZRot;
+    //float[] eyeLightIntensities;
 
     float stdSpeed;
     float stdAngularSpeed;
@@ -84,17 +86,20 @@ public class Seeker : MonoBehaviour {
         chaseAngularSpeed = stdAngularSpeed * angularSpeedMultiplier;
 
         PassiveEyeColours = new Color[eyeLights.Length];
-        eyeLightIntensities = new float[eyeLights.Length];
+        //eyeLightIntensities = new float[eyeLights.Length];
 
         for (int i = 0; i < eyeLights.Length; i++)
         {
             //print(eyeLights[i].color);
             PassiveEyeColours[i] = eyeLights[i].color;
-            eyeLightIntensities[i] = eyeLights[i].intensity;
+         //   eyeLightIntensities[i] = eyeLights[i].intensity;
         }
         rend = Eye.GetComponent<Renderer>();
         //print(rend.material);
-        passiveEyeMat = rend.material;
+        //passiveEyeMat = rend.material;
+
+        initEyeXRot = Eye.transform.localEulerAngles.x;
+        initEyeZRot = Eye.transform.localEulerAngles.z;
 
         myObjectHandler = gameObject.GetComponent<ObjectInteractions>();
 
@@ -106,10 +111,12 @@ public class Seeker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        for (int i = 0; i < eyeLights.Length; i++)
-        {
-            eyeLights[i].intensity = eyeLightIntensities[i];
-        }
+        eyeLights[0].intensity = 8;
+
+        //for (int i = 0; i < eyeLights.Length; i++)
+        //{
+        //    eyeLights[i].intensity = eyeLightIntensities[i];
+        //}
 
         if (seekState == seekerState.Patrol)
         {
@@ -143,7 +150,7 @@ public class Seeker : MonoBehaviour {
             }
             agent.SetDestination(patrolPoints[currentPatrolPoint].position);
 
-            eyeRot = eyeRot + eyeSwaySpeed;
+            /*eyeRot = eyeRot + eyeSwaySpeed;
             if (eyeRot > maxEyeSwayAngle)
             {
                 eyeSwaySpeed = -1 * Mathf.Abs(eyeSwaySpeed); //use sine graph
@@ -152,7 +159,7 @@ public class Seeker : MonoBehaviour {
             {
                 eyeSwaySpeed = Mathf.Abs(eyeSwaySpeed); //use sine graph
             }
-            Eye.localEulerAngles = new Vector3(0, eyeRot, 0);
+            Eye.localEulerAngles = new Vector3(initEyeXRot, eyeRot, initEyeZRot);*/
 
         }
         else if (seekState == seekerState.Chasing)
@@ -165,7 +172,7 @@ public class Seeker : MonoBehaviour {
                 beeper.Play();
                 beeper.loop = true;
             }
-            Eye.LookAt(energyCubeTarget.transform);
+            //Eye.LookAt(energyCubeTarget.transform);
             //eyeRot = Eye.eulerAngles.y;
             //Eye.localEulerAngles = new Vector3(0, eyeRot, 0);
 
@@ -176,7 +183,7 @@ public class Seeker : MonoBehaviour {
                 {
                     eyeLights[i].color = lockedOnEyeColours[i];
                 }
-                rend.material = lockedOnEyeMat;
+                //rend.material = lockedOnEyeMat;
             }
 
             agent.speed = chaseSpeed;
@@ -241,7 +248,7 @@ public class Seeker : MonoBehaviour {
                 {
                     eyeLights[i].color = PassiveEyeColours[i];
                 }
-                rend.material = passiveEyeMat;
+                //rend.material = passiveEyeMat;
             }
 
             if (beeper.isPlaying)
