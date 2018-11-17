@@ -139,9 +139,9 @@ public class Golem: MonoBehaviour {
         initLightIntensity = new float[eyeLights.Length];
         //for (int i = 0; i < eyeLights.Length; i++)
         //{
-        initLightIntensity[0] = 3.5f;
-        initLightIntensity[1] = 8f;
-        initLightIntensity[2] = 60;
+        initLightIntensity[0] = 3f;
+        initLightIntensity[1] = 4f;
+        initLightIntensity[2] = 30;
         initLightIntensity[3] = 40;
         //}
 

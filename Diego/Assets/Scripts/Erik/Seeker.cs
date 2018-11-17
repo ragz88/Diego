@@ -112,7 +112,7 @@ public class Seeker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        eyeLights[0].intensity = 7;
+        eyeLights[0].intensity = 5;
 
         //for (int i = 0; i < eyeLights.Length; i++)
         //{

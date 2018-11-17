@@ -24,6 +24,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
     public LayerMask rayMask;
     public LayerMask wallRayMask;
     public bool preferLeft = true;
+    public Light[] Spotlights;
 
     public Vector3 currentDest;
 
@@ -52,6 +53,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        
         gyroscope.transform.parent = null;
         //interactionController = gameObject.GetComponent<ObjectInteractions>();
         agent = gameObject.GetComponent<NavMeshAgent>();
@@ -76,11 +78,14 @@ public class CleanerEnemy2_0 : MonoBehaviour
         {
             movePoints[i] = moveTransforms[i].position;
         }*/
+     
     }
 
     // Update is called once per frame
     void Update()
     {
+        Spotlights[0].intensity = 2;
+        Spotlights[1].intensity = 2.6f;
 
         currentDest = agent.destination;
 
