@@ -7,7 +7,9 @@ public class River : MonoBehaviour {
     public bool useLerp = false;
     public Transform destination;
     public float riverSpeed = 2f;
-
+    public RuntimeAnimatorController [] Animators;
+    public Avatar Diego;
+    bool notswimming = true;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,11 +17,21 @@ public class River : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if(notswimming)
+        {
+         // GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Animators[0];
+        }
+        
 	}
-
+    private void OnCollisionExit(Collision collision)
+    {
+       // swimming = false;
+    }
     private void OnTriggerStay(Collider other)
     {
+
+       // notswimming = false;
+
         if (other.tag == "Player" || other.tag == "EnergySource")
         {
             
@@ -34,11 +46,14 @@ public class River : MonoBehaviour {
 
             if (Vector3.Distance(other.transform.position, destination.position) <= 1.5f)
             {
-                other.GetComponent<Animator>().enabled = true;
+                other.GetComponent<Animator>().runtimeAnimatorController = Animators[0];
+                other.GetComponent<Animator>().avatar = Diego;
             }
             else
             {
-                other.GetComponent<Animator>().enabled = false;
+                
+                other.GetComponent<Animator>().runtimeAnimatorController = Animators[1];
+                other.GetComponent<Animator>().avatar = Diego;
             }
         }
     }
