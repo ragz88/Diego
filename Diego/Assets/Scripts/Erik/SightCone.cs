@@ -42,7 +42,7 @@ public class SightCone : MonoBehaviour {
                 if (Physics.Raycast(Eye.position, sightPoints[i].position - Eye.position, out rayHit, 12f, sightMask))
                 {
                     //print(rayHit.collider.gameObject.name);
-                    if (rayHit.collider.gameObject.tag == "Player")         //"PlayerBody"
+                    if (rayHit.collider.gameObject.tag == "Player" || rayHit.collider.gameObject.tag == "PlayerBody")         //"PlayerBody"
                     {
                         canSeePlayer = true;
                         break;
@@ -82,8 +82,8 @@ public class SightCone : MonoBehaviour {
                 RaycastHit rayHit;
                 if (Physics.Raycast(Eye.position, sightPoints[i].position - Eye.position, out rayHit, 4f, sightMask))
                 {
-                    //print(rayHit.collider.gameObject.name);
-                    if (rayHit.collider.gameObject.tag == "Player")     //PlayerBody
+                    print(rayHit.collider.gameObject.tag);
+                    if (rayHit.collider.gameObject.tag == "Player"  || rayHit.collider.gameObject.tag == "PlayerBody")     //PlayerBody
                     {
                         //objInteraction = rayHit.collider.gameObject.GetComponentInChildren<ObjectInteractions>();
                         if (objInteraction.holdingPickup == true && seeker != null)

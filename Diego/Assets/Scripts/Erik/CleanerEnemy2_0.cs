@@ -190,6 +190,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
             //ForwardRayCheck
             if (Physics.Raycast(transform.position, transform.forward + new Vector3(0, -0.5f, 0), out rayHit, 2f, rayMask))
             {
+                
                 if (rayHit.collider.gameObject.tag == "Bar")
                 {
                     bar = rayHit.collider.gameObject.GetComponent<LoadingBar>();
@@ -209,6 +210,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
                 {
                     if (Physics.Raycast(transform.position, transform.forward, out rayHit, 2.2f, rayMask))
                     {
+                        
                         if ((rayHit.collider.gameObject.tag == "Wall" || rayHit.collider.gameObject.tag == "Pushable") && !isTurning && (Vector3.Angle(transform.forward, moveTransforms[currentPos].position - transform.position) < 5f))
                         {
                             beeper.clip = wallBeep;
@@ -291,7 +293,7 @@ public class CleanerEnemy2_0 : MonoBehaviour
                 }
             }
 
-            //Debug.DrawRay(transform.position, (transform.forward + new Vector3(0, -0.5f, 0)).normalized * 2f, Color.cyan);
+            //Debug.DrawRay(transform.position, (transform.forward + transform.up * 0.2f).normalized * 2.2f, Color.cyan);
             //Debug.DrawRay(transform.position, (transform.forward + 0.75f*transform.right).normalized * 2f, Color.magenta);
             //Debug.DrawRay(transform.position, (transform.forward - 0.75f * transform.right).normalized * 2f, Color.magenta);
 
