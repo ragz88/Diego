@@ -11,6 +11,8 @@ public class ObjectInteractions : MonoBehaviour {
     public GameObject prompt;
     public Image promptPic;
     public Transform liftPos;
+    public Transform altLiftPos;
+    Transform currentLiftPos;
     public Transform pushPos;
     public float liftSpeed = 0.1f;
     float currentLiftSpeed = 0.1f;
@@ -44,16 +46,36 @@ public class ObjectInteractions : MonoBehaviour {
     Transform pushPoint;
     //bool lockMovement = false;
 
+    TPCEngine.TPCharacter character;
+    TPCEngine.TPCMotor charMotor;
+
     // Use this for initialization
     void Start () {
         //promptText = prompt.GetComponent<Text>();
         //characterControl = gameObject.GetComponent<MoveBehaviour>();                 //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
         //character = gameObject.GetComponentInParent<ThirdPersonCharacter>();
-        
+        currentLiftPos = liftPos;
+        if (!enemy)
+        {
+            character = gameObject.GetComponent<TPCEngine.TPCharacter>();
+            charMotor = character.characterMotor;
+        }
     }
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!enemy)
+        {
+            if (charMotor.getIsCrouching())
+            {
+                currentLiftPos = altLiftPos;
+            }
+            else
+            {
+                currentLiftPos = liftPos;
+            }
+        }
 
         //PushableObject pushScript;
         LiftableObject liftScript = null;
@@ -322,8 +344,8 @@ public class ObjectInteractions : MonoBehaviour {
 
         if (holdingPickup && lerpingPickup)
         {
-            objectToLift.transform.LookAt(liftPos.position + transform.forward);
-            objectToLift.transform.position = Vector3.Lerp(objectToLift.transform.position, liftPos.position, liftSpeed*Time.deltaTime);
+            objectToLift.transform.LookAt(currentLiftPos.position + transform.forward);
+            objectToLift.transform.position = Vector3.Lerp(objectToLift.transform.position, currentLiftPos.position, liftSpeed*Time.deltaTime);
         }
 
         /*if (pushingObject)
