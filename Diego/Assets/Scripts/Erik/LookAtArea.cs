@@ -48,6 +48,7 @@ public class LookAtArea : MonoBehaviour {
             affectedObject.transform.eulerAngles = Vector3.Lerp(affectedObject.transform.eulerAngles, new Vector3(tempx, tempy, tempz), 1 * Time.deltaTime);
 
             //affectedObject.GetComponent<NavMeshAgent>().enabled = true;
+            Destroy(temp.gameObject);
         }
 
         //turning = false;
