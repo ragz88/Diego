@@ -289,6 +289,8 @@ public class Golem: MonoBehaviour {
             {
                 //show our cage, move it and expand it
                 cage.SetActive(true);
+                //cage.transform.parent = liftPos.transform;
+                //diegoTarget.transform.parent = liftPos.transform;
                 if (cage.transform.localScale.x < finalCageScale)
                 {
                     cage.transform.localScale = cage.transform.localScale * (1 + (cageSpeed*2*Time.deltaTime));
@@ -331,7 +333,8 @@ public class Golem: MonoBehaviour {
                     golState = golemState.Returning;
                     //diegoMoveBehav.lockMovement = false;                                                      //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
                     diegoTarget.GetComponent<Animator>().enabled = true;
-
+                    //diegoTarget.transform.parent = null;
+                    //cage.transform.parent = Eye;
                 }
             }
             else if (golState == golemState.Returning)
