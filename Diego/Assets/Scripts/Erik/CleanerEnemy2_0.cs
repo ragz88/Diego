@@ -50,6 +50,8 @@ public class CleanerEnemy2_0 : MonoBehaviour
     public AudioClip wallBeep;
     public AudioClip barBeep;
 
+    public bool logRay = false;
+
     // Use this for initialization
     void Start()
     {
@@ -195,6 +197,10 @@ public class CleanerEnemy2_0 : MonoBehaviour
             //ForwardRayCheck
             if (Physics.Raycast(transform.position, transform.forward + new Vector3(0, -0.5f, 0), out rayHit, 2f, rayMask))
             {
+                if (logRay)
+                {
+                    print(rayHit.collider.gameObject.name);
+                }
                 
                 if (rayHit.collider.gameObject.tag == "Bar")
                 {
