@@ -45,6 +45,8 @@ public class PromptControl : MonoBehaviour {
 
     bool showPrompt = false;
 
+    public Controllercheck controlCheck;
+
     // Use this for initialization
     void Start () {
         currentCrouchSprite = crouchPic;
@@ -56,6 +58,15 @@ public class PromptControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (controlCheck.controllerConected)
+        {
+            promptType = PromptType.Controller;
+        }
+        else
+        {
+            promptType = PromptType.Keyboard;
+        }
 
         if (promptType == PromptType.Controller && !changedToControl)
         {

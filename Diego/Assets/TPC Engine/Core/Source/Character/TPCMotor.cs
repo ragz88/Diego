@@ -63,6 +63,8 @@ namespace TPCEngine
 		[SerializeField] private LayerMask groundLayer = 1 << 0;
 		[SerializeField] private float groundMinDistance = 0.2f;
 		[SerializeField] private float groundMaxDistance = 0.5f;
+
+        public bool swimming = false;
 		#endregion
 
 		#region [Action variables]
@@ -329,7 +331,7 @@ namespace TPCEngine
 
 		private void JumpHandler()
 		{
-			if (TPCInput.GetButtonDown("Jump") || Input.GetButtonDown("ControlJump"))
+			if ((TPCInput.GetButtonDown("Jump") || Input.GetButtonDown("ControlJump")) && !swimming)
 				Jump();
 		}
 
@@ -348,7 +350,7 @@ namespace TPCEngine
 			float capsuleHeight = colliderHeight;
 			float capsuleVelociy = wasColliderVelocityCenter;
 
-			if ((TPCInput.GetButtonDown("Crouch") || Input.GetButtonDown("ControlCrouch")) && !isCrouching)
+			if ((TPCInput.GetButtonDown("Crouch") || Input.GetButtonDown("ControlCrouch")) && !isCrouching && !swimming)
 			{
 				isCrouching = !isCrouching;
 			}
