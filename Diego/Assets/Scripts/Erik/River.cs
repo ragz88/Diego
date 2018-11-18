@@ -9,10 +9,13 @@ public class River : MonoBehaviour {
     public float riverSpeed = 2f;
     public RuntimeAnimatorController [] Animators;
     public Avatar Diego;
+    public TPCEngine.TPCharacter diegoChar;
+    TPCEngine.TPCMotor diegoMot;
+    public GameObject[] bankColliders;
     bool notswimming = true;
 	// Use this for initialization
 	void Start () {
-		
+        diegoMot = diegoChar.characterMotor;
 	}
 	
 	// Update is called once per frame
@@ -35,6 +38,8 @@ public class River : MonoBehaviour {
         if (other.tag == "Player" || other.tag == "EnergySource")
         {
             
+            
+
             if (useLerp && Vector3.Distance(other.transform.position, destination.position) > 1.5f)
             {
                 other.transform.position = Vector3.Lerp(other.transform.position, destination.position, riverSpeed * Time.deltaTime);
@@ -55,6 +60,13 @@ public class River : MonoBehaviour {
                 other.GetComponent<Animator>().runtimeAnimatorController = Animators[1];
                 other.GetComponent<Animator>().avatar = Diego;
             }
+
+            for (int i = 0; i < bankColliders.Length; i++)
+            {
+                bankColliders[i].SetActive(true);
+            }
+
+            diegoMot.swimming = true;
         }
     }
 
@@ -63,6 +75,11 @@ public class River : MonoBehaviour {
         if (other.tag == "Player" || other.tag == "EnergySource")
         {
             other.GetComponent<Animator>().enabled = true;
+            for (int i = 0; i < bankColliders.Length; i++)
+            {
+                bankColliders[i].SetActive(false);
+            }
+            diegoMot.swimming = false;
         }
     }
 }
