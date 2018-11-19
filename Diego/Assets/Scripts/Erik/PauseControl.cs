@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class PauseControl : MonoBehaviour {
@@ -10,8 +11,9 @@ public class PauseControl : MonoBehaviour {
     Image PanelIm;
     public GameObject Panel;
     public Button initButton;
+    
 
-    bool paused = false;
+    public bool paused = false;
     float initZoom;
 
 	// Use this for initialization
@@ -21,7 +23,8 @@ public class PauseControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Menu"))
+
+		if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Pause"))
         {
             /*if (paused)
             {
@@ -85,15 +88,30 @@ public class PauseControl : MonoBehaviour {
         //Cursor.visible = false;
     }
 
-    public void QuitGame()
+    public void QuitGameFin()
     {
-        if (paused)
-        {
+        
             #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
             #else
                 Application.Quit();
             #endif
-        }
+        
+    }
+
+    public void QuitGame()
+    {
+        //if (paused)
+        //{
+            SceneManager.LoadScene(0);
+        //}
+    }
+
+    public void RestartLvl()
+    {
+        //if (paused)
+        //{
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        //}
     }
 }
