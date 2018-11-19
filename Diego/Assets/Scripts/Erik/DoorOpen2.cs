@@ -136,7 +136,7 @@ public class DoorOpen2 : MonoBehaviour {
                 {
                     FillRing.SetActive(true);
 
-                    if (FillRing.transform.localScale.x < 0.22f && !TopOpening && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
+                    if (FillRing.transform.localScale.x < 0.22f && !TopOpening)
                     {
                         FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
                             FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
