@@ -103,7 +103,8 @@ public class PauseControl : MonoBehaviour {
     {
         //if (paused)
         //{
-            SceneManager.LoadScene(0);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
         //}
     }
 
@@ -111,7 +112,9 @@ public class PauseControl : MonoBehaviour {
     {
         //if (paused)
         //{
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         //}
     }
 }
