@@ -88,9 +88,17 @@ public class ObjectInteractions : MonoBehaviour {
         }*/
 
 
-        //Raycasting (4 directions) ----------------------------
+        //Raycasting (5 directions) ----------------------------
         RaycastHit rayHit;
         if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward + new Vector3(0, -0.5f, 0), out rayHit, 1.2f, rayMask))
+        {
+            pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
+            liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+            envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
+        }
+
+        if ((pushBoxController == null && liftScript == null && envPushable == null) &&
+            Physics.Raycast(transform.position + new Vector3(0, 1, 0) , transform.forward + new Vector3(0, 0.75f, 0) , out rayHit, 1.75f, rayMask))
         {
             pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
             liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();

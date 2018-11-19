@@ -92,6 +92,8 @@ public class Golem: MonoBehaviour {
     AudioSource beeper;
     public AudioClip alarm;
     public AudioClip wallBeep;
+    public AudioClip switchOn;
+    public AudioClip switchOff;
     public float alarmVolume = 0.5f;
     float initPitch;
     float initVolume;
@@ -208,6 +210,7 @@ public class Golem: MonoBehaviour {
                     if (!beeper.isPlaying || (beeper.clip == alarm && beeper.isPlaying))
                     {
                         beeper.clip = wallBeep;
+                        beeper.loop = false;
                         beeper.pitch = initPitch;
                         beeper.volume = initVolume;
                         beeper.Play();
@@ -485,6 +488,9 @@ public class Golem: MonoBehaviour {
             energySourceLO = other.gameObject.GetComponent<LiftableObject>();
             if (energySourceLO.beingCarried == false)
             {
+                beeper.clip = switchOn;
+                beeper.loop = false;
+                beeper.Play();
                 energySource = other.gameObject;
                 blockPresent = true;
                 energySource.GetComponent<Rigidbody>().isKinematic = true;

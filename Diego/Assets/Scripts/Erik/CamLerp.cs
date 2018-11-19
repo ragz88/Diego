@@ -13,7 +13,7 @@ public class CamLerp : MonoBehaviour {
     bool lerping = false;
     public bool loop = false;
     public bool useDelays = true;
-    bool active = false;
+    bool active = true;
 
     // Use this for initialization
     void Start () {
@@ -68,7 +68,7 @@ public class CamLerp : MonoBehaviour {
     {
         timer = 0;
         lerping = true;
-        if (currentPos < lerpPoints.Length)
+        if (currentPos < lerpPoints.Length-1)
         {
             currentPos += 1;
         }
