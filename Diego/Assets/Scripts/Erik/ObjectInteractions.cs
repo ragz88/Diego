@@ -116,7 +116,7 @@ public class ObjectInteractions : MonoBehaviour {
         if (optionalCam != null)
         {
             if ((pushBoxController == null && liftScript == null && envPushable == null) &&
-                Physics.Raycast(optionalCam.transform.position, optionalCam.transform.forward, out rayHit, (Vector3.Distance(transform.position, optionalCam.transform.position) + 1.5f), rayMask))
+                Physics.Raycast(optionalCam.transform.position, optionalCam.transform.forward, out rayHit, (Vector3.Distance(transform.position, optionalCam.transform.position) + 2f), rayMask))
             {
                 pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
                 liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
