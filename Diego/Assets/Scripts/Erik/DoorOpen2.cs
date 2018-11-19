@@ -61,8 +61,10 @@ public class DoorOpen2 : MonoBehaviour {
         LerpTop1.position = new Vector3(Top1.position.x, Top1.position.y + 4.9f, Top1.position.z);
         LerpTop2.position = new Vector3(Top2.position.x, Top2.position.y - 3.75f, Top2.position.z);
 
-        LerpMid1.position = new Vector3(Mid1.position.x - 2f, Mid1.position.y, Mid1.position.z);
-        LerpMid2.position = new Vector3(Mid2.position.x + 2f, Mid2.position.y, Mid2.position.z);
+        //LerpMid1.position = new Vector3(Mid1.position.x - 2f, Mid1.position.y, Mid1.position.z);
+        //LerpMid2.position = new Vector3(Mid2.position.x + 2f, Mid2.position.y, Mid2.position.z);
+
+        LerpMid1.position = Mid1.position + (transform.right * 2);
 
         LerpBack1.position = new Vector3(Back1.position.x, Back1.position.y - 3.75f, Back1.position.z);
         LerpBack2.position = new Vector3(Back2.position.x, Back2.position.y + 4f, Back2.position.z);
