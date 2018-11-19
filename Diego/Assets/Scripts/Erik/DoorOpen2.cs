@@ -61,8 +61,14 @@ public class DoorOpen2 : MonoBehaviour {
         LerpTop1.position = new Vector3(Top1.position.x, Top1.position.y + 4.9f, Top1.position.z);
         LerpTop2.position = new Vector3(Top2.position.x, Top2.position.y - 3.75f, Top2.position.z);
 
-        LerpMid1.position = new Vector3(Mid1.position.x - 2f, Mid1.position.y, Mid1.position.z);
-        LerpMid2.position = new Vector3(Mid2.position.x + 2f, Mid2.position.y, Mid2.position.z);
+        LerpTop1.position = Top1.position + (Vector3.up * 4.9f) - (transform.up * 1.5f);
+        LerpTop2.position = Top2.position - (Vector3.up * 3.75f) - (transform.up * 1.5f);
+
+        //LerpMid1.position = new Vector3(Mid1.position.x - 2f, Mid1.position.y, Mid1.position.z);
+        //LerpMid2.position = new Vector3(Mid2.position.x + 2f, Mid2.position.y, Mid2.position.z);
+
+        LerpMid1.position = Mid1.position - (transform.right * 3);
+        LerpMid2.position = Mid2.position + (transform.right * 3);
 
         LerpBack1.position = new Vector3(Back1.position.x, Back1.position.y - 3.75f, Back1.position.z);
         LerpBack2.position = new Vector3(Back2.position.x, Back2.position.y + 4f, Back2.position.z);
@@ -85,7 +91,7 @@ public class DoorOpen2 : MonoBehaviour {
             //Block.eulerAngles = Vector3.Lerp(Block.eulerAngles, new Vector3(0,0,0), 0.01f);
             Block.rotation = Quaternion.Slerp(Block.rotation, Quaternion.identity, 0.05f);
             FillRing.SetActive(true);
-            if (FillRing.transform.localScale.x < 0.22f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
+            if (FillRing.transform.localScale.x < 17.66f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
             {
                 FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
                     FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
@@ -109,7 +115,7 @@ public class DoorOpen2 : MonoBehaviour {
         {
             if (!barActivated)
             {
-                if (FillRing.transform.localScale.x < 0.22f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
+                if (FillRing.transform.localScale.x < 17.66f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
                 {
                     FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
                         FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
@@ -136,7 +142,7 @@ public class DoorOpen2 : MonoBehaviour {
                 {
                     FillRing.SetActive(true);
 
-                    if (FillRing.transform.localScale.x < 0.22f && !TopOpening)
+                    if (FillRing.transform.localScale.x < 17.66f && !TopOpening)
                     {
                         FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
                             FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
