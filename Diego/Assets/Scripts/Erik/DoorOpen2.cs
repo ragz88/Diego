@@ -6,26 +6,24 @@ using UnityEngine.UI;
 public class DoorOpen2 : MonoBehaviour {
 
     public Image FillBar1;
-    public Image FillBar2;
-    public Image FillRing;
-    public Image DarkRing;
+    public GameObject FillRing;
     public ParticleSystem LightParts;
 
-    public Transform Wing1, Wing2;
-    public Transform Disc;
-    public Transform Door;
+    public Transform Top1, Top2;
+    public Transform Mid1, Mid2;
+    public Transform Back1, Back2;
 
-    public Transform LerpWing1, LerpWing2;
-    public Transform LerpDoor;
-    public Transform LerpBlock1, LerpBlock2;
+    Transform LerpTop1, LerpTop2;
+    Transform LerpMid1, LerpMid2, LerpBack1, LerpBack2;
+    public Transform LerpBlock1/*, LerpBlock2*/;
 
-    public float WingSpeed = 0.1f;
-    public float FillSpeed = 0.1f;
     public float DoorSpeed = 0.1f;
-    public float DiscSpeed = 0.1f;
+    public float ShutterSpeed = 0.1f;
+    public float FillSpeed = 0.1f;
+    public float CircFillSpeed = 0.1f;
     public float BlockSpeed = 0.1f;
-    public float WingsDelay = 0.5f;
-    public float doorDelay = 0.5f;
+    public float ShutterDelay = 0.15f;
+    public float doorDelay = 0.15f;
 
     public bool barActivated = false;
     public LoadingBar bar;
@@ -37,40 +35,64 @@ public class DoorOpen2 : MonoBehaviour {
     [HideInInspector]
     public bool BlockFound = false;
     bool Activated = false;
-    bool WingsOpening = false;
-    bool WingsOpen = false;
-    bool DoorOpening = false;
-    bool DoorOpened = false;
+    bool TopOpening = false;
+    bool TopOpen = false;
+    bool MidOpening = false;
+    bool MidOpen = false;
+    bool BackOpening = false;
+    bool BackOpen = false;
+
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         //FillSpeed = FillSpeed / 100;
         //WingSpeed = WingSpeed / 100;
         //DoorSpeed = DoorSpeed / 100;
-        DiscSpeed = DiscSpeed * 100;
         BlockSpeed = BlockSpeed * 100;
         doorSound = gameObject.GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        LerpTop1 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+        LerpTop2 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+        LerpBack1 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+        LerpBack2 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+        LerpMid1 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+        LerpMid2 = Instantiate(LerpBlock1, Vector3.zero, Quaternion.identity);
+
+        LerpTop1.position = new Vector3(Top1.position.x, Top1.position.y + 4.9f, Top1.position.z);
+        LerpTop2.position = new Vector3(Top2.position.x, Top2.position.y - 3.75f, Top2.position.z);
+
+        LerpMid1.position = new Vector3(Mid1.position.x - 2f, Mid1.position.y, Mid1.position.z);
+        LerpMid2.position = new Vector3(Mid2.position.x + 2f, Mid2.position.y, Mid2.position.z);
+
+        LerpBack1.position = new Vector3(Back1.position.x, Back1.position.y - 3.75f, Back1.position.z);
+        LerpBack2.position = new Vector3(Back2.position.x, Back2.position.y + 4f, Back2.position.z);
+    }
+
+    // Update is called once per frame
+    void Update() {
 
         /*if (Input.GetKeyDown(KeyCode.G))
         {
             Activated = true;
         }*/
 
-        if (BlockFound && !Activated && !DoorOpened && !barActivated)
+        if (BlockFound && !Activated && !TopOpen && !barActivated)
         {
             Block.gameObject.GetComponent<Rigidbody>().useGravity = false;
             Block.gameObject.GetComponent<Rigidbody>().isKinematic = true;
             Block.gameObject.GetComponent<Animator>().enabled = false;
-            Block.position = Vector3.Lerp(Block.position, LerpBlock1.position, (BlockSpeed*Time.deltaTime));
+            Block.position = Vector3.Lerp(Block.position, LerpBlock1.position, (BlockSpeed * Time.deltaTime));
             //Block.eulerAngles = Vector3.Lerp(Block.eulerAngles, new Vector3(0,0,0), 0.01f);
             Block.rotation = Quaternion.Slerp(Block.rotation, Quaternion.identity, 0.05f);
-            if (Vector3.Distance(Block.position, LerpBlock1.position) < 0.05f && Quaternion.Angle(Block.rotation,Quaternion.identity) < 1.5f)
+            FillRing.SetActive(true);
+            if (FillRing.transform.localScale.x < 0.22f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
             {
-                Block.parent = Disc;
+                FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
+                    FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
+            }
+            if (Vector3.Distance(Block.position, LerpBlock1.position) < 0.05f && Quaternion.Angle(Block.rotation, Quaternion.identity) < 1.5f)
+            {
+                Block.parent = Top1;
                 Activated = true;
             }
         }
@@ -83,107 +105,127 @@ public class DoorOpen2 : MonoBehaviour {
             }
         }
 
-		if (Activated)
+        if (Activated)
         {
             if (!barActivated)
             {
-                if (FillRing.fillAmount < 1)
+                if (FillRing.transform.localScale.x < 0.22f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
                 {
-                    FillRing.fillAmount += (FillSpeed * Time.deltaTime);
+                    FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
+                        FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
                 }
                 else
                 {
-                    DarkRing.gameObject.SetActive(false);
-                    if ((FillBar1.fillAmount < 1 || FillBar2.fillAmount < 1) && !WingsOpening)
+                    if ((FillBar1.fillAmount < 1) && !TopOpening)
                     {
                         FillBar1.fillAmount += (FillSpeed * Time.deltaTime);
-                        FillBar2.fillAmount += (FillSpeed * Time.deltaTime);
                     }
-                    else if (WingsOpening == false)
+                    else if (TopOpening == false)
                     {
-                        Invoke("OpenWings", WingsDelay);
+                        Invoke("OpenTop", doorDelay);
                     }
                 }
             }
             else
             {
-                if (FillBar1.fillAmount < 1 || FillBar2.fillAmount < 1)
+                if (FillBar1.fillAmount < 1)
                 {
                     FillBar1.fillAmount += (FillSpeed * Time.deltaTime);
-                    FillBar2.fillAmount += (FillSpeed * Time.deltaTime);
                 }
                 else
                 {
-                    if (FillRing.fillAmount < 1 && !WingsOpening)
+                    FillRing.SetActive(true);
+
+                    if (FillRing.transform.localScale.x < 0.22f && !TopOpening && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
                     {
-                        FillRing.fillAmount += (FillSpeed * Time.deltaTime);  
+                        FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
+                            FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
                     }
-                    else if (WingsOpening == false)
+                    else if (TopOpening == false)
                     {
-                        DarkRing.gameObject.SetActive(false);
-                        Invoke("OpenWings", WingsDelay);
+                        Invoke("OpenTop", doorDelay);
                     }
                 }
             }
-            
 
-            if (WingsOpening && !WingsOpen)
+
+            if (TopOpening && !TopOpen)
             {
-                Disc.Rotate(0,(DiscSpeed * Time.deltaTime), 0);
-                Wing1.position = Vector3.Lerp(Wing1.position, LerpWing1.position, (WingSpeed * Time.deltaTime));
-                Wing2.position = Vector3.Lerp(Wing2.position, LerpWing2.position, (WingSpeed * Time.deltaTime));
-                if (!barActivated)
+                Top1.position = Vector3.MoveTowards(Top1.position, LerpTop1.position, (DoorSpeed * Time.deltaTime));
+                Top2.position = Vector3.MoveTowards(Top2.position, LerpTop2.position, (DoorSpeed * Time.deltaTime));
+                /*if (!barActivated)
                 {
                     if (Vector3.Distance(Block.position, LerpBlock2.position) > 0.03f)
                     {
                         Block.position = Vector3.Lerp(Block.position, LerpBlock2.position, ((BlockSpeed * Time.deltaTime) / 10));
                     }
-                }
-                if (Vector3.Distance(Wing1.position, LerpWing1.position) < 3f && Vector3.Distance(Wing2.position, LerpWing2.position) < 3f
-                    && (barActivated || (Block != null && Vector3.Distance(Block.position, LerpBlock2.position)  < 0.03f)) && (Disc.localEulerAngles.y % 45 < 1f))
+                }*/
+                if (Vector3.Distance(Top1.position, LerpTop1.position) <= DoorSpeed && Vector3.Distance(Top2.position, LerpTop2.position) <= DoorSpeed
+                    && (barActivated || (Block != null && Vector3.Distance(Block.position, LerpBlock1.position) < 0.6f)))
                 {
-                    //print(Disc.eulerAngles.y);
-                    WingsOpen = true;
-                    Invoke("OpenDoor", doorDelay);
+                    TopOpen = true;
+                    Invoke("OpenMid", ShutterDelay);
                 }
             }
 
-            if (DoorOpening && !DoorOpened)
+            if (MidOpening && !MidOpen)
             {
-                Door.position = Vector3.Lerp(Door.position, LerpDoor.position, (DoorSpeed * Time.deltaTime));
-                if (Vector3.Distance(Door.position, LerpDoor.position) < 0.1f)
+                Mid1.position = Vector3.MoveTowards(Mid1.position, LerpMid1.position, (ShutterSpeed * Time.deltaTime));
+                Mid2.position = Vector3.MoveTowards(Mid2.position, LerpMid2.position, (ShutterSpeed * Time.deltaTime));
+
+                if (Vector3.Distance(Mid1.position, LerpMid1.position) < 0.1f && Vector3.Distance(Mid2.position, LerpMid2.position) < 0.1f)
                 {
-                    DoorOpened = true;
+                    MidOpen = true;
+                    Invoke("OpenBack", ShutterDelay);
+                }
+            }
+
+            if (BackOpening && !BackOpen)
+            {
+                Back1.position = Vector3.MoveTowards(Back1.position, LerpBack1.position, (ShutterSpeed * 2 * Time.deltaTime));
+                Back2.position = Vector3.MoveTowards(Back2.position, LerpBack2.position, (ShutterSpeed * 2 * Time.deltaTime));
+
+                if (Vector3.Distance(Back1.position, LerpBack1.position) < 0.1f && Vector3.Distance(Back2.position, LerpBack2.position) < 0.1f)
+                {
+                    BackOpen = true;
                     Activated = false;
                 }
             }
-        }
-	}
 
-    void OpenWings()
+        }
+    }
+
+    void OpenTop()
     {
-        if (!WingsOpening)
+        if (!TopOpening)
         {
-            WingsOpening = true;
+            TopOpening = true;
             LightParts.gameObject.SetActive(true);
             LightParts.Play();
             doorSound.Play();
-            Invoke("HideBars",0.15f);
+            Invoke("HideBars", 0.15f);
             Invoke("DestroyParts", 4);
         }
     }
 
-    void OpenDoor()
+    void OpenMid()
     {
-        DoorOpening = true;
+        MidOpening = true;
     }
+
+    void OpenBack()
+    {
+        BackOpening = true;
+    }
+
+    //void OpenDoor()
+    //{
+    //    DoorOpening = true;
+    //}
 
     void HideBars()
     {
-        //FillBar1.fillAmount = 0;
-        //FillBar2.fillAmount = 0;
         FillBar1.gameObject.SetActive(false);
-        FillBar2.gameObject.SetActive(false);
     }
 
     void DestroyParts()
