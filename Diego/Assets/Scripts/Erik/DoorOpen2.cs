@@ -41,6 +41,7 @@ public class DoorOpen2 : MonoBehaviour {
     bool MidOpen = false;
     bool BackOpening = false;
     bool BackOpen = false;
+    public AudioSource d2;
 
 
     // Use this for initialization
@@ -176,6 +177,10 @@ public class DoorOpen2 : MonoBehaviour {
 
             if (MidOpening && !MidOpen)
             {
+                if (d2 != null && d2.isPlaying == false)
+                {
+                    d2.Play();
+                }
                 Mid1.position = Vector3.MoveTowards(Mid1.position, LerpMid1.position, (ShutterSpeed * Time.deltaTime));
                 Mid2.position = Vector3.MoveTowards(Mid2.position, LerpMid2.position, (ShutterSpeed * Time.deltaTime));
 
@@ -188,6 +193,10 @@ public class DoorOpen2 : MonoBehaviour {
 
             if (BackOpening && !BackOpen)
             {
+                if (d2 != null && d2.isPlaying == false)
+                {
+                    d2.Play();
+                }
                 Back1.position = Vector3.MoveTowards(Back1.position, LerpBack1.position, (ShutterSpeed * 2 * Time.deltaTime));
                 Back2.position = Vector3.MoveTowards(Back2.position, LerpBack2.position, (ShutterSpeed * 2 * Time.deltaTime));
 
