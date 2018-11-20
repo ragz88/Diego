@@ -29,7 +29,7 @@ void Start ()
         if (MusicPlayer == null)
         {
             Debug.Log("Music Player was Null");
-            MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+            //MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
 
         }
 
