@@ -6,27 +6,39 @@ using UnityEngine.SceneManagement;
 
 public class MusicOperator : MonoBehaviour {
 
-    public AudioClip[] Songs;
+    public bool fadingOut = false;
     public AudioSource MusicPlayer;
+    public float fadeInTime;
+    public float fadeOutTime;
+    public AudioClip[] Songs;
     int currentSong = 0;
-
+    float volume;
 	// Use this for initialization
 	void Start () {
-
-        MusicPlayer.Play();
+        MusicPlayer = GameObject.FindObjectOfType<MusicOperator>().GetComponent<AudioSource>();
+        volume = MusicPlayer.volume;
+        StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime,volume));
+        //MusicPlayer.Play();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         currentSong = SceneManager.GetActiveScene().buildIndex;
-        if(MusicPlayer.clip != Songs[currentSong])
+        if(MusicPlayer.isPlaying == false)
         {
-            MusicPlayer.Stop();
+            //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+            //MusicPlayer.Stop();
             MusicPlayer.clip = Songs[currentSong];
-            MusicPlayer.Play();
+            StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
+            //MusicPlayer.Play();
         }
-            
-       
+
+        if(fadingOut)
+        {
+            Debug.Log("Stop song");
+            StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+
+        }
 
     }
 
@@ -41,4 +53,26 @@ public class MusicOperator : MonoBehaviour {
            
 
     }
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+            yield return null;
+        }
+        audioSource.Stop();
+    }
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float Volume)
+    {
+        audioSource.Play();
+        audioSource.volume = 0f;
+        while (audioSource.volume < Volume)
+        {
+            audioSource.volume += Time.deltaTime / FadeTime;
+            yield return null;
+        }
+    }
+
+  
 }

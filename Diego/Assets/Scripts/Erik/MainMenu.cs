@@ -9,11 +9,11 @@ public class MainMenu : MonoBehaviour {
     bool pressedKey = false;
     public CamLerp camlerp;
     public Button start;
-
-	// Use this for initialization
-	void Start () {
-		
-	}
+    MusicOperator MusicPlayer;
+    // Use this for initialization
+    void Start () {
+        MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,12 +37,13 @@ public class MainMenu : MonoBehaviour {
 
     public void StartGame()
     {
+        MusicPlayer.fadingOut = true;
         SceneManager.LoadScene(1);
     }
 
     public void credits()
     {
-
+        MusicPlayer.fadingOut = true;
         SceneManager.LoadScene(5);
     }
 }

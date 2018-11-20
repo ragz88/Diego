@@ -14,14 +14,25 @@ public class SceneChanger : MonoBehaviour {
     bool fadingIn = true;
     public bool loadNextScene = true;
     public int SceneToLoad;
+    MusicOperator MusicPlayer;
 
 // Use this for initialization
-void Start () {
-		
+void Start ()
+    {
+        MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
+
+        if (MusicPlayer == null)
+        {
+            Debug.Log("Music Player was Null");
+            MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+
+        }
+
         if (fadingOut)
         {
             whiteOut.color = new Color(whiteOut.color.r, whiteOut.color.g, whiteOut.color.b, whiteOut.color.a + (Time.deltaTime * fadeSpeed));
@@ -52,6 +63,7 @@ void Start () {
     {
         if (!loadingNext && other.gameObject.tag == "Player")
         {
+            MusicPlayer.fadingOut = true;
             loadingNext = true;
             Invoke("StartFade", fadeDelay);
         }
