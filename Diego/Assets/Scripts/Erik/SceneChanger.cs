@@ -17,6 +17,8 @@ public class SceneChanger : MonoBehaviour {
     public bool loadNextScene = true;
     public int SceneToLoad;
     MusicOperator MusicPlayer;
+    float startTimer = 0;
+    bool timing = true;
 
 // Use this for initialization
 void Start ()
@@ -27,6 +29,19 @@ void Start ()
 	// Update is called once per frame
 	void Update ()
     {
+        if (timing)
+        {
+            if (startTimer < fadeInDelay)
+            {
+                startTimer += Time.deltaTime;
+            }
+            else
+            {
+                fadingIn = true;
+                timing = false;
+            }
+        }
+
 
         if (MusicPlayer == null)
         {
@@ -67,7 +82,7 @@ void Start ()
         {
             MusicPlayer.fadingOut = true;
             loadingNext = true;
-            Invoke("StartFade", fadeDelay);
+            Invoke("StartFade", fadeOutDelay);
         }
     }
 
