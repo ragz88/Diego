@@ -87,104 +87,105 @@ public class ObjectInteractions : MonoBehaviour {
             dropObject();
         }*/
 
-
-        //Raycasting (5 directions) ----------------------------
-        RaycastHit rayHit;
-        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward + new Vector3(0, -0.5f, 0), out rayHit, 1.2f, rayMask))
+        if (!holdingPickup)
         {
-            pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
-            liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
-            envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
-        }
-
-        if ((pushBoxController == null && liftScript == null && envPushable == null) &&
-            Physics.Raycast(transform.position + new Vector3(0, 1, 0) , transform.forward + new Vector3(0, 0.75f, 0) , out rayHit, 1.75f, rayMask))
-        {
-            pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
-            liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
-            envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
-        }
-
-        if ( (pushBoxController == null && liftScript == null && envPushable == null) &&
-            Physics.Raycast(transform.position + new Vector3(0, 1, 0) + 0.25f * transform.right, transform.forward + new Vector3(0, -0.5f, 0) + 1.5f*transform.right, out rayHit, 1.2f, rayMask))
-        {
-            pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
-            liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
-            envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
-        }
-
-        if ((pushBoxController == null && liftScript == null && envPushable == null) &&
-            Physics.Raycast(transform.position + new Vector3(0, 1, 0) - 0.25f * transform.right, transform.forward + new Vector3(0, -0.5f, 0) - 1.5f*transform.right, out rayHit, 1.2f, rayMask))
-        {
-            pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
-            liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
-            envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
-        }
-
-        if (optionalCam != null)
-        {
-            if ((pushBoxController == null && liftScript == null && envPushable == null) &&
-                Physics.Raycast(optionalCam.transform.position, optionalCam.transform.forward, out rayHit, (Vector3.Distance(transform.position, optionalCam.transform.position) + 2f), rayMask))
+            //Raycasting (5 directions) ----------------------------
+            RaycastHit rayHit;
+            if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward + new Vector3(0, -0.5f, 0), out rayHit, 1.2f, rayMask))
             {
                 pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
                 liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
                 envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
             }
-        }
 
-        Debug.DrawRay(transform.position + new Vector3(0, 1, 0) + 0.25f * transform.right, (transform.forward + new Vector3(0, -0.5f, 0) + 1.5f * transform.right).normalized * 1.2f, Color.magenta);
-        Debug.DrawRay(transform.position + new Vector3(0, 1, 0) - 0.25f * transform.right, (transform.forward + new Vector3(0, -0.5f, 0) - 1.5f * transform.right).normalized * 1.2f, Color.magenta);
-        if (optionalCam != null)
-        {
-            Debug.DrawRay(optionalCam.transform.position, (optionalCam.transform.forward).normalized * (Vector3.Distance(transform.position, optionalCam.transform.position) + 1.2f), Color.green);
-        }
-        Debug.DrawRay(transform.position + new Vector3(0, 1, 0), (transform.forward + new Vector3(0, -0.5f, 0)).normalized * 1.2f, Color.magenta);
-
-
-        //-------------------------------------------------------
-
-
-        //Raycast resolution ----------------------
-        if (liftScript != null /*&& characterControl.lockMovement != true*/)       //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
-        {
-            objectToLift = liftScript.gameObject;
-            nextToPickup = true;
-        }
-        else
-        {
-            if (!holdingPickup)
+            if ((pushBoxController == null && liftScript == null && envPushable == null) &&
+                Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward + new Vector3(0, 0.75f, 0), out rayHit, 1.75f, rayMask))
             {
-                objectToLift = null;
+                pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
+                liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+                envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
             }
-            nextToPickup = false;
 
-            if (pushBoxController != null)
+            if ((pushBoxController == null && liftScript == null && envPushable == null) &&
+                Physics.Raycast(transform.position + new Vector3(0, 1, 0) + 0.25f * transform.right, transform.forward + new Vector3(0, -0.5f, 0) + 1.5f * transform.right, out rayHit, 1.2f, rayMask))
             {
-                objectToPush = pushBoxController.gameObject;
-                nextToPushable = true;
+                pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
+                liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+                envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
+            }
+
+            if ((pushBoxController == null && liftScript == null && envPushable == null) &&
+                Physics.Raycast(transform.position + new Vector3(0, 1, 0) - 0.25f * transform.right, transform.forward + new Vector3(0, -0.5f, 0) - 1.5f * transform.right, out rayHit, 1.2f, rayMask))
+            {
+                pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
+                liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+                envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
+            }
+
+            if (optionalCam != null)
+            {
+                if ((pushBoxController == null && liftScript == null && envPushable == null) &&
+                    Physics.Raycast(optionalCam.transform.position, optionalCam.transform.forward, out rayHit, (Vector3.Distance(transform.position, optionalCam.transform.position) + 2f), rayMask))
+                {
+                    pushBoxController = rayHit.collider.gameObject.GetComponent<PushableObject>();
+                    liftScript = rayHit.collider.gameObject.GetComponent<LiftableObject>();
+                    envPushable = rayHit.collider.gameObject.GetComponent<EnvironmentalPushable>();
+                }
+            }
+
+            Debug.DrawRay(transform.position + new Vector3(0, 1, 0) + 0.25f * transform.right, (transform.forward + new Vector3(0, -0.5f, 0) + 1.5f * transform.right).normalized * 1.2f, Color.magenta);
+            Debug.DrawRay(transform.position + new Vector3(0, 1, 0) - 0.25f * transform.right, (transform.forward + new Vector3(0, -0.5f, 0) - 1.5f * transform.right).normalized * 1.2f, Color.magenta);
+            if (optionalCam != null)
+            {
+                Debug.DrawRay(optionalCam.transform.position, (optionalCam.transform.forward).normalized * (Vector3.Distance(transform.position, optionalCam.transform.position) + 1.2f), Color.green);
+            }
+            Debug.DrawRay(transform.position + new Vector3(0, 1, 0), (transform.forward + new Vector3(0, -0.5f, 0)).normalized * 1.2f, Color.magenta);
+
+
+            //-------------------------------------------------------
+
+
+            //Raycast resolution ----------------------
+            if (liftScript != null /*&& characterControl.lockMovement != true*/)       //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
+            {
+                objectToLift = liftScript.gameObject;
+                nextToPickup = true;
             }
             else
             {
-                if (!pushingObject)
+                if (!holdingPickup)
                 {
-                    objectToPush = null;
+                    objectToLift = null;
                 }
-                nextToPushable = false;
+                nextToPickup = false;
 
-                if (envPushable != null)
+                if (pushBoxController != null)
                 {
-                    nextToEnvPushable = true;
+                    objectToPush = pushBoxController.gameObject;
+                    nextToPushable = true;
                 }
                 else
                 {
-                    nextToEnvPushable = false;
+                    if (!pushingObject)
+                    {
+                        objectToPush = null;
+                    }
+                    nextToPushable = false;
+
+                    if (envPushable != null)
+                    {
+                        nextToEnvPushable = true;
+                    }
+                    else
+                    {
+                        nextToEnvPushable = false;
+                    }
                 }
             }
+            //-----------------------------------------
+
+
         }
-        //-----------------------------------------
-
-
-        
 
         if (objectToLift != null)
         {

@@ -98,6 +98,8 @@ public class Golem: MonoBehaviour {
     float initPitch;
     float initVolume;
 
+    public GameObject golShield;
+
     
     float[] initLightIntensity;
 
@@ -177,6 +179,8 @@ public class Golem: MonoBehaviour {
             energySource.transform.rotation = Quaternion.Slerp(energySource.transform.rotation, energySourceFinPos.rotation, 20 * Time.deltaTime);
             if (golState == golemState.Patrol)
             {
+                golShield.SetActive(false);
+
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
                     cage.SetActive(false);
@@ -232,6 +236,8 @@ public class Golem: MonoBehaviour {
             }
             else if (golState == golemState.Chasing)
             {
+                golShield.SetActive(true);
+
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
                     cage.SetActive(false);
@@ -290,6 +296,8 @@ public class Golem: MonoBehaviour {
             }
             else if (golState == golemState.Lifting)
             {
+                golShield.SetActive(true);
+
                 //show our cage, move it and expand it
                 cage.SetActive(true);
                 //cage.transform.parent = liftPos.transform;
@@ -325,6 +333,8 @@ public class Golem: MonoBehaviour {
             }
             else if (golState == golemState.Dropping)
             {
+                golShield.SetActive(true);
+
                 cage.transform.position = Vector3.Lerp(cage.transform.position, diegoTarget.transform.position + new Vector3(0, 1, 0), cageSpeed * Time.deltaTime * 5);
 
                 agent.SetDestination(transform.position);
@@ -342,6 +352,8 @@ public class Golem: MonoBehaviour {
             }
             else if (golState == golemState.Returning)
             {
+                golShield.SetActive(false);
+
                 if (cage.transform.localScale.x > initCageScale)
                 {
                     cage.transform.localScale = cage.transform.localScale * (1 - (cageSpeed * 2 * Time.deltaTime));
