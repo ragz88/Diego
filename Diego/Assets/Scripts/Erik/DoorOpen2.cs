@@ -42,6 +42,11 @@ public class DoorOpen2 : MonoBehaviour {
     bool BackOpening = false;
     bool BackOpen = false;
     public AudioSource d2;
+    public Light sphereLight;
+    public float maxSphereLightInt = 4;
+
+    bool firstShutterSoundPlayed = false;
+    bool secondShutterSoundPlayed = false;
 
 
     // Use this for initialization
@@ -91,11 +96,18 @@ public class DoorOpen2 : MonoBehaviour {
             Block.position = Vector3.Lerp(Block.position, LerpBlock1.position, (BlockSpeed * Time.deltaTime));
             //Block.eulerAngles = Vector3.Lerp(Block.eulerAngles, new Vector3(0,0,0), 0.01f);
             Block.rotation = Quaternion.Slerp(Block.rotation, Quaternion.identity, 0.05f);
-            FillRing.SetActive(true);
-            if (FillRing.transform.localScale.x < 17.66f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
+            //FillRing.SetActive(true);
+            //if (FillRing.transform.localScale.x < 17.66f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
+            //{
+            //    FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
+            //        FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
+            //}
+            if (sphereLight != null)
             {
-                FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
-                    FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
+                if (sphereLight.intensity < maxSphereLightInt)
+                {
+                    sphereLight.intensity += Time.deltaTime;
+                }
             }
             if (Vector3.Distance(Block.position, LerpBlock1.position) < 0.05f && Quaternion.Angle(Block.rotation, Quaternion.identity) < 1.5f)
             {
@@ -177,9 +189,10 @@ public class DoorOpen2 : MonoBehaviour {
 
             if (MidOpening && !MidOpen)
             {
-                if (d2 != null && d2.isPlaying == false)
+                if (d2 != null && firstShutterSoundPlayed == false)
                 {
                     d2.Play();
+                    firstShutterSoundPlayed = true;
                 }
                 Mid1.position = Vector3.MoveTowards(Mid1.position, LerpMid1.position, (ShutterSpeed * Time.deltaTime));
                 Mid2.position = Vector3.MoveTowards(Mid2.position, LerpMid2.position, (ShutterSpeed * Time.deltaTime));
@@ -193,9 +206,10 @@ public class DoorOpen2 : MonoBehaviour {
 
             if (BackOpening && !BackOpen)
             {
-                if (d2 != null && d2.isPlaying == false)
+                if (d2 != null && secondShutterSoundPlayed == false)
                 {
                     d2.Play();
+                    secondShutterSoundPlayed = true;
                 }
                 Back1.position = Vector3.MoveTowards(Back1.position, LerpBack1.position, (ShutterSpeed * 2 * Time.deltaTime));
                 Back2.position = Vector3.MoveTowards(Back2.position, LerpBack2.position, (ShutterSpeed * 2 * Time.deltaTime));
