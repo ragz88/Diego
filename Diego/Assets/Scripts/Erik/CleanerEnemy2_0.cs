@@ -370,7 +370,8 @@ public class CleanerEnemy2_0 : MonoBehaviour
             objectToLift.transform.position = Vector3.Lerp(objectToLift.transform.position, liftPoint.position, liftSpeed * 10 * Time.deltaTime);
             agent.SetDestination(source.initialPos);
 
-            if (Vector3.Distance(transform.position, source.initialPos) < 1.25f && !isTurning)
+            if (((Vector3.Distance(objectToLift.transform.position, source.initialPos) < 0.5f) ||
+                (Vector3.Distance(transform.position, source.initialPos) < 1.25f)) && !isTurning)
             {
                 //put source down
                 cleanBotState = botState.Dropping;
