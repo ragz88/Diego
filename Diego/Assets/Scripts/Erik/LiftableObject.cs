@@ -17,6 +17,8 @@ public class LiftableObject : MonoBehaviour {
     public GameObject partAttractor;
     //public ErikParticleAttractorLinear partAttractor;
     Outline outline;
+    public Transform optionalStartingPos;
+    public bool updateStartPos = false;
 
     Animator anim;
 
@@ -28,6 +30,10 @@ public class LiftableObject : MonoBehaviour {
         if (useStartingPos)
         {
             initialPos = transform.position;
+        }
+        else if (optionalStartingPos != null)
+        {
+            initialPos = optionalStartingPos.position;
         }
         anim = gameObject.GetComponent<Animator>();
         dissolveSound = gameObject.GetComponent<AudioSource>();
@@ -41,6 +47,11 @@ public class LiftableObject : MonoBehaviour {
         {
             Dissolve();
         }*/
+        if (updateStartPos)
+        {
+            initialPos = optionalStartingPos.position;
+        }
+
         if (beingCarried || !inRange)
         {
             outline.enabled = false;
