@@ -39,6 +39,7 @@ public class Seeker : MonoBehaviour {
     public Color[] lockedOnEyeColours;
     //public Material lockedOnEyeMat;
     public Light[] eyeLights;
+    public AuraAPI.AuraLight auraLight;
     Color[] PassiveEyeColours;
     //Material passiveEyeMat;
     Renderer rend;
@@ -96,6 +97,7 @@ public class Seeker : MonoBehaviour {
             PassiveEyeColours[i] = eyeLights[i].color;
          //   eyeLightIntensities[i] = eyeLights[i].intensity;
         }
+        auraLight.enabled = true;
         rend = Eye.GetComponent<Renderer>();
         //print(rend.material);
         //passiveEyeMat = rend.material;

@@ -186,6 +186,7 @@ public class Golem: MonoBehaviour {
             {
                 golShield.SetActive(false);
                 shieldRend.material = shieldMat2;
+                energySourceLO.beingCarried = false;
 
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
@@ -244,6 +245,7 @@ public class Golem: MonoBehaviour {
             {
                 golShield.SetActive(true);
                 shieldRend.material = shieldMat1;
+                energySourceLO.beingCarried = true;
 
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
@@ -305,6 +307,7 @@ public class Golem: MonoBehaviour {
             {
                 golShield.SetActive(true);
                 shieldRend.material = shieldMat1;
+                energySourceLO.beingCarried = true;
 
                 //show our cage, move it and expand it
                 cage.SetActive(true);
@@ -342,6 +345,7 @@ public class Golem: MonoBehaviour {
             else if (golState == golemState.Dropping)
             {
                 golShield.SetActive(true);
+                energySourceLO.beingCarried = true;
 
                 cage.transform.position = Vector3.Lerp(cage.transform.position, diegoTarget.transform.position + new Vector3(0, 1, 0), cageSpeed * Time.deltaTime * 5);
 
@@ -362,6 +366,7 @@ public class Golem: MonoBehaviour {
             {
                 golShield.SetActive(true);
                 shieldRend.material = shieldMat2;
+                energySourceLO.beingCarried = true;
 
                 if (cage.transform.localScale.x > initCageScale)
                 {

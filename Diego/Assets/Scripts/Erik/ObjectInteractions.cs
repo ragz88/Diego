@@ -148,8 +148,11 @@ public class ObjectInteractions : MonoBehaviour {
             //Raycast resolution ----------------------
             if (liftScript != null /*&& characterControl.lockMovement != true*/)       //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
             {
-                objectToLift = liftScript.gameObject;
-                nextToPickup = true;
+                if (liftScript.beingCarried == false)
+                {
+                    objectToLift = liftScript.gameObject;
+                    nextToPickup = true;
+                }
             }
             else
             {
