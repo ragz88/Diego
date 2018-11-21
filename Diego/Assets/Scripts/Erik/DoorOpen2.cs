@@ -106,7 +106,7 @@ public class DoorOpen2 : MonoBehaviour {
             {
                 if (sphereLight.intensity < maxSphereLightInt)
                 {
-                    sphereLight.intensity += Time.deltaTime;
+                    sphereLight.intensity += 1.5f * Time.deltaTime;
                 }
             }
             if (Vector3.Distance(Block.position, LerpBlock1.position) < 0.05f && Quaternion.Angle(Block.rotation, Quaternion.identity) < 1.5f)
@@ -128,10 +128,18 @@ public class DoorOpen2 : MonoBehaviour {
         {
             if (!barActivated)
             {
+                if (sphereLight != null)
+                {
+                    if (sphereLight.intensity < maxSphereLightInt)
+                    {
+                        sphereLight.intensity += 1.5f*Time.deltaTime;
+                    }
+                }
+
                 if (FillRing.transform.localScale.x < 17.66f && Vector3.Distance(Block.transform.position, LerpBlock1.position) < 0.5f)
                 {
-                    FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (CircFillSpeed * Time.deltaTime),
-                        FillRing.transform.localScale.y + (CircFillSpeed * Time.deltaTime), FillRing.transform.localScale.z + (CircFillSpeed * Time.deltaTime));
+                    FillRing.transform.localScale = new Vector3(FillRing.transform.localScale.x + (10 * Time.deltaTime),
+                        FillRing.transform.localScale.y + (10 * Time.deltaTime), FillRing.transform.localScale.z + (10 * Time.deltaTime));
                 }
                 else
                 {
