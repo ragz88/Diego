@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SoundFades : MonoBehaviour {
     AudioSource SoundPlayer;
-    public float volume = .5f;
-    public float fadeInTime = 5f;
+    float volume;
+    public float fadeInTime = 10f;
     public float fadeOutTime = 5f;
     public static bool PlayAmbientNoise = true;
     MusicOperator MusicPlayer;
@@ -13,7 +13,8 @@ public class SoundFades : MonoBehaviour {
     void Start () {
         SoundPlayer = gameObject.GetComponent<AudioSource>();
       
-        MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+       // MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+        volume = SoundPlayer.volume;
         SoundPlayer.volume = 0;
         SoundPlayer.Play();
         StartCoroutine(SoundFades.FadeIn(SoundPlayer, fadeInTime, volume));
@@ -23,9 +24,9 @@ public class SoundFades : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log("Music is "+MusicPlayer.fadingOut);
+      //  Debug.Log("Music is "+MusicPlayer.fadingOut);
         Debug.Log("Volume is " + volume);
-        if (MusicPlayer.fadingOut == true)
+        if (!PlayAmbientNoise)
         {
             StartCoroutine(SoundFades.FadeOut(SoundPlayer, fadeOutTime));
         }

@@ -26,15 +26,25 @@ public class MusicOperator : MonoBehaviour {
         currentSong = SceneManager.GetActiveScene().buildIndex;
         if(MusicPlayer.isPlaying == false)
         {
-            Debug.Log("play song");
+            Debug.Log("play song "+ currentSong);
             //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Stop();
             MusicPlayer.clip = Songs[currentSong];
             StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
             //MusicPlayer.Play();
         }
+        if (MusicPlayer.clip != Songs[currentSong])
+        {
+            Debug.Log("play song " + currentSong);
+            //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+            //MusicPlayer.Stop();            
+            StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
+            //MusicPlayer.Play();
+            MusicPlayer.clip = Songs[currentSong];
+            StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+        }
 
-        if(fadingOut)
+        if (fadingOut)
         {
             fadingOut = false;
             //Debug.Log("Stop song");
