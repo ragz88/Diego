@@ -23,7 +23,11 @@ public class SceneChanger : MonoBehaviour {
 // Use this for initialization
 void Start ()
     {
-        MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
+        GameObject musicPlayerTemp = GameObject.FindGameObjectWithTag("Music");
+        if (musicPlayerTemp != null)
+        {
+            MusicPlayer = musicPlayerTemp.GetComponent<MusicOperator>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -80,7 +84,10 @@ void Start ()
     {
         if (!loadingNext && other.gameObject.tag == "Player")
         {
-            MusicPlayer.fadingOut = true;
+            if (MusicPlayer != null)
+            {
+                MusicPlayer.fadingOut = true;
+            }
             loadingNext = true;
             Invoke("StartFade", fadeOutDelay);
         }

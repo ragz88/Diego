@@ -51,14 +51,14 @@ public class LiftableObject : MonoBehaviour {
         {
             if (lightProjector.intensity < lightIntensity)
             {
-                lightProjector.intensity += Time.deltaTime;
+                lightProjector.intensity += 2.5f*Time.deltaTime;
             }
         }
         else
         {
             if (lightProjector.intensity > 0)
             {
-                lightProjector.intensity -= Time.deltaTime;
+                lightProjector.intensity -= 3*Time.deltaTime;
             }
         }
 	}
