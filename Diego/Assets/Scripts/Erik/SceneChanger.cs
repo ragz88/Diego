@@ -8,8 +8,10 @@ public class SceneChanger : MonoBehaviour {
 
     bool loadingNext = false;
     public Image whiteOut;
-    public float fadeDelay;
-    public float fadeSpeed;
+    public float fadeInDelay = 1.5f;
+    public float fadeOutDelay = 1.5f;
+    public float fadeInSpeed =1;
+    public float fadeOutSpeed =1;
     bool fadingOut = false;
     bool fadingIn = true;
     public bool loadNextScene = true;
@@ -35,7 +37,7 @@ void Start ()
 
         if (fadingOut)
         {
-            whiteOut.color = new Color(whiteOut.color.r, whiteOut.color.g, whiteOut.color.b, whiteOut.color.a + (Time.deltaTime * fadeSpeed));
+            whiteOut.color = new Color(whiteOut.color.r, whiteOut.color.g, whiteOut.color.b, whiteOut.color.a + (Time.deltaTime * fadeOutSpeed));
             if (whiteOut.color.a >= 1)
             {
                 if (loadNextScene)
@@ -51,7 +53,7 @@ void Start ()
         }
         else if (fadingIn)
         {
-            whiteOut.color = new Color(whiteOut.color.r, whiteOut.color.g, whiteOut.color.b, whiteOut.color.a - (Time.deltaTime * fadeSpeed));
+            whiteOut.color = new Color(whiteOut.color.r, whiteOut.color.g, whiteOut.color.b, whiteOut.color.a - (Time.deltaTime * fadeInSpeed));
             if (whiteOut.color.a <= 0)
             {
                 fadingIn = false;
