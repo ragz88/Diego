@@ -97,8 +97,11 @@ public class Golem: MonoBehaviour {
     public float alarmVolume = 0.5f;
     float initPitch;
     float initVolume;
+    Renderer shieldRend;
 
     public GameObject golShield;
+    public Material shieldMat1;
+    Material shieldMat2;
 
     
     float[] initLightIntensity;
@@ -151,6 +154,8 @@ public class Golem: MonoBehaviour {
 
         initCageScale = cage.transform.localScale.x;
         cageRend = cage.GetComponent<Renderer>();
+        shieldRend = golShield.GetComponent<Renderer>();
+        shieldMat2 = shieldRend.material;
     }
 
     // Update is called once per frame
@@ -180,6 +185,7 @@ public class Golem: MonoBehaviour {
             if (golState == golemState.Patrol)
             {
                 golShield.SetActive(false);
+                shieldRend.material = shieldMat2;
 
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
@@ -237,6 +243,7 @@ public class Golem: MonoBehaviour {
             else if (golState == golemState.Chasing)
             {
                 golShield.SetActive(true);
+                shieldRend.material = shieldMat1;
 
                 if (Vector3.Distance(cage.transform.position, Eye.transform.position) < 0.2f)
                 {
@@ -297,6 +304,7 @@ public class Golem: MonoBehaviour {
             else if (golState == golemState.Lifting)
             {
                 golShield.SetActive(true);
+                shieldRend.material = shieldMat1;
 
                 //show our cage, move it and expand it
                 cage.SetActive(true);
@@ -352,7 +360,8 @@ public class Golem: MonoBehaviour {
             }
             else if (golState == golemState.Returning)
             {
-                golShield.SetActive(false);
+                golShield.SetActive(true);
+                shieldRend.material = shieldMat2;
 
                 if (cage.transform.localScale.x > initCageScale)
                 {
