@@ -26,6 +26,7 @@ public class MusicOperator : MonoBehaviour {
         currentSong = SceneManager.GetActiveScene().buildIndex;
         if(MusicPlayer.isPlaying == false)
         {
+            Debug.Log("play song");
             //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Stop();
             MusicPlayer.clip = Songs[currentSong];
@@ -35,8 +36,10 @@ public class MusicOperator : MonoBehaviour {
 
         if(fadingOut)
         {
-            Debug.Log("Stop song");
+            fadingOut = false;
+            //Debug.Log("Stop song");
             StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+            
 
         }
 
