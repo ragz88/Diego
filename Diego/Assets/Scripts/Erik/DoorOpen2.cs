@@ -284,7 +284,7 @@ public class DoorOpen2 : MonoBehaviour {
                 Block.gameObject.GetComponent<BoxCollider>().enabled = false;
                 Block.gameObject.GetComponent<LiftableObject>().Interactions.dropObject();
                 Block.gameObject.GetComponent<LiftableObject>().lightProjector.enabled = false;
-                Block.gameObject.GetComponent<LiftableObject>().enabled = false;
+                Destroy(Block.gameObject.GetComponent<LiftableObject>());
                 Block.gameObject.GetComponent<Outline>().enabled = false;
                 Block.tag = "Untagged";
             }

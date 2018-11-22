@@ -19,6 +19,8 @@ public class LiftableObject : MonoBehaviour {
     Outline outline;
     public Transform optionalStartingPos;
     public bool updateStartPos = false;
+    //[HideInInspector]
+    //public bool inDoor = false;
 
     Animator anim;
 
