@@ -7,7 +7,7 @@ public class BarActivator : MonoBehaviour {
 
 	//public Image[] bars;
 	public LoadingBar[] bars;
-
+    AudioSource barNoise;
     public bool testActivator = false;
     //public float startIntensity = 1;
     //public float endIntensity = 60;
@@ -22,8 +22,9 @@ public class BarActivator : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        barNoise = GetComponent<AudioSource>();
+        barNoise.enabled = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -69,6 +70,7 @@ public class BarActivator : MonoBehaviour {
     {
         if (hit.tag == "EnergySource" && hit.GetComponent<LiftableObject>().beingCarried == false)
         {
+            barNoise.enabled = true;
             hit.GetComponent<Rigidbody>().isKinematic = true;
             for (int i = 0; i < bars.Length; i++)
             {
@@ -87,6 +89,7 @@ public class BarActivator : MonoBehaviour {
     {
         if (hit.tag == "EnergySource" && hit.GetComponent<LiftableObject>().beingCarried == false)
         {
+            barNoise.enabled = true;
             hit.GetComponent<Rigidbody>().isKinematic = true;
             for (int i = 0; i < bars.Length; i++)
             {
@@ -113,6 +116,7 @@ public class BarActivator : MonoBehaviour {
     {
         if (hit.tag == "EnergySource")
         {
+            barNoise.enabled = false;
             if (hit.GetComponent<LiftableObject>().beingCarried == false)
             {
                 hit.GetComponent<Rigidbody>().isKinematic = false;

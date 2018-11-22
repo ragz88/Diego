@@ -88,6 +88,9 @@ void Start ()
             if (whiteOut.color.a <= 0)
             {
                 fadingIn = false;
+            }
+            if (whiteOut.color.a <= 0.75)
+            {
                 cancelInitialNoise = false;
             }
         }
