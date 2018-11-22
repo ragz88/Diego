@@ -19,10 +19,13 @@ public class SceneChanger : MonoBehaviour {
     MusicOperator MusicPlayer;
     float startTimer = 0;
     bool timing = true;
+    bool cancelInitialNoise = true;
+    GameObject Diego;
 
 // Use this for initialization
 void Start ()
     {
+        Diego = GameObject.FindGameObjectWithTag("Player");
         GameObject musicPlayerTemp = GameObject.FindGameObjectWithTag("Music");
         if (musicPlayerTemp != null)
         {
@@ -33,6 +36,15 @@ void Start ()
 	// Update is called once per frame
 	void Update ()
     {
+        if(cancelInitialNoise)
+        {
+            print(Diego);
+            Diego.GetComponent<AudioSource>().enabled = false;           
+        }
+        else
+        {
+            Diego.GetComponent<AudioSource>().enabled   = true;
+        }
         if (timing)
         {
             if (startTimer < fadeInDelay)
@@ -49,7 +61,7 @@ void Start ()
 
         if (MusicPlayer == null)
         {
-            Debug.Log("Music Player was Null");
+            //Debug.Log("Music Player was Null");
             //MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
 
         }
@@ -76,6 +88,7 @@ void Start ()
             if (whiteOut.color.a <= 0)
             {
                 fadingIn = false;
+                cancelInitialNoise = false;
             }
         }
     }
