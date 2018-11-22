@@ -29,7 +29,7 @@ public class SoundFades : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
       //  Debug.Log("Music is "+MusicPlayer.fadingOut);
-        Debug.Log("Volume is " + volume);
+        //Debug.Log("Volume is " + volume);
         if (!PlayAmbientNoise)
         {
             StartCoroutine(SoundFades.FadeOut(SoundPlayer, fadeOutTime));
