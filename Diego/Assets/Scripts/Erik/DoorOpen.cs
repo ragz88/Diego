@@ -204,7 +204,7 @@ public class DoorOpen : MonoBehaviour {
                 Block.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 Block.gameObject.GetComponent<BoxCollider>().enabled = false;
                 Block.gameObject.GetComponent<LiftableObject>().Interactions.dropObject();
-                Block.gameObject.GetComponent<LiftableObject>().enabled = false;
+                Destroy(Block.gameObject.GetComponent<LiftableObject>());
                 //Block.tag = "Default";
             }
         }

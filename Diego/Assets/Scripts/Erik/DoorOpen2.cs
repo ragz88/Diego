@@ -283,8 +283,10 @@ public class DoorOpen2 : MonoBehaviour {
                 Block.gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 Block.gameObject.GetComponent<BoxCollider>().enabled = false;
                 Block.gameObject.GetComponent<LiftableObject>().Interactions.dropObject();
+                Block.gameObject.GetComponent<LiftableObject>().lightProjector.enabled = false;
                 Block.gameObject.GetComponent<LiftableObject>().enabled = false;
-                //Block.tag = "Default";
+                Block.gameObject.GetComponent<Outline>().enabled = false;
+                Block.tag = "Untagged";
             }
         }
     }

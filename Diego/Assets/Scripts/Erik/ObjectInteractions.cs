@@ -418,6 +418,7 @@ public class ObjectInteractions : MonoBehaviour {
         {
             Physics.IgnoreCollision(objectToLift.GetComponent<Collider>(), gameObject.transform.GetComponent<Collider>(), false);
         }
+        objectToLift = null;
         /*if (characterControl != null)                                   //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
         {
             characterControl.lifting = false;
