@@ -209,7 +209,11 @@ public class Seeker : MonoBehaviour {
             //{
             //    seekState = seekerState.Destroying;
             //}
-
+            if (energyCubeTarget.GetComponent<LiftableObject>() == null)
+            {
+                seekState = seekerState.Patrol;
+                //agent.SetDestination(transform.position);
+            }
         }
         else if (seekState == seekerState.Destroying)
         {
