@@ -10,7 +10,7 @@ public class CamLerp : MonoBehaviour {
     public float slerpSpeed;
     float timer = 0;
     int currentPos = 0;
-    bool lerping = false;
+    public bool lerping = false;
     public bool loop = false;
     public bool useDelays = true;
     bool active = true;
