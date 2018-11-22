@@ -36,13 +36,13 @@ public class MusicOperator : MonoBehaviour {
         }
         if (MusicPlayer.clip != Songs[currentSong])
         {
-            Debug.Log("play song " + currentSong);
+            Debug.Log("play song " + currentSong + " volume is " + volume);
             //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Stop();            
-            StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
+            StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Play();
             MusicPlayer.clip = Songs[currentSong];
-            StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
+            StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
         }
 
         if (fadingOut)
