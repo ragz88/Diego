@@ -8,6 +8,7 @@ public class SoundFades : MonoBehaviour {
     public float fadeInTime = 10f;
     public float fadeOutTime = 5f;
     public static bool PlayAmbientNoise = true;
+    public bool playOnAwake = true;
     MusicOperator MusicPlayer;
     // Use this for initialization
     void Start () {
@@ -16,7 +17,10 @@ public class SoundFades : MonoBehaviour {
        // MusicPlayer = GameObject.FindGameObjectWithTag("Music").GetComponent<MusicOperator>();
         volume = SoundPlayer.volume;
         SoundPlayer.volume = 0;
-        SoundPlayer.Play();
+        if(playOnAwake)
+        {
+           SoundPlayer.Play();
+        }
         StartCoroutine(SoundFades.FadeIn(SoundPlayer, fadeInTime, volume));
        
        
