@@ -9,7 +9,8 @@ public class SoundFades : MonoBehaviour {
     public float fadeOutTime = 5f;
     public static bool PlayAmbientNoise = true;
     public bool playOnAwake = true;
-    MusicOperator MusicPlayer;
+    public bool running = false;
+    //MusicOperator MusicPlayer;
     // Use this for initialization
     void Start () {
         SoundPlayer = gameObject.GetComponent<AudioSource>();
@@ -21,7 +22,7 @@ public class SoundFades : MonoBehaviour {
         {
            SoundPlayer.Play();
         }
-        StartCoroutine(SoundFades.FadeIn(SoundPlayer, fadeInTime, volume));
+        StartCoroutine(SoundFades.FadeIn(SoundPlayer, fadeInTime, volume,this));
        
        
     }
@@ -32,31 +33,42 @@ public class SoundFades : MonoBehaviour {
         //Debug.Log("Volume is " + volume);
         if (!PlayAmbientNoise)
         {
-            StartCoroutine(SoundFades.FadeOut(SoundPlayer, fadeOutTime));
+            StartCoroutine(SoundFades.FadeOut(SoundPlayer, fadeOutTime,this));
         }
         //if (MusicPlayer.fadingOut == false)
         //{
         //    StartCoroutine(SoundFades.FadeIn(SoundPlayer, fadeInTime, volume));
         //}
     }
-    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
+    public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime, SoundFades SoundFades)
     {
-        float startVolume = audioSource.volume;
-        while (audioSource.volume > 0)
+        if (!SoundFades.running)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
-            yield return null;
+            SoundFades.running = true;
+            float startVolume = audioSource.volume;
+            while (audioSource.volume > 0)
+            {
+                audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+                yield return null;
+            }
+            //audioSource.Stop();
+            SoundFades.running = false;
         }
-        //audioSource.Stop();
+
     }
-    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float Volume)
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float Volume, SoundFades SoundFades)
     {
-        //audioSource.Play();
-        audioSource.volume = 0f;
-        while (audioSource.volume < Volume)
+        if (!SoundFades.running)
         {
-            audioSource.volume += Time.deltaTime / FadeTime;
-            yield return null;
+            SoundFades.running = true;
+            //audioSource.Play();
+            audioSource.volume = 0f;
+            while (audioSource.volume < Volume)
+            {
+                audioSource.volume += Time.deltaTime / FadeTime;
+                yield return null;
+            }
+            SoundFades.running = false;
         }
     }
 }

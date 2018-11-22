@@ -23,6 +23,7 @@ public class BarActivator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         barNoise = GetComponent<AudioSource>();
+        barNoise.Play();
         barNoise.enabled = false;
     }
 	
@@ -30,6 +31,7 @@ public class BarActivator : MonoBehaviour {
 	void Update () {
         if (testActivator)
         {
+            //print(barNoise);
             /*if (Input.GetKeyDown(KeyCode.F))
             {
                 for (int i = 0; i < bars.Length; i++)
