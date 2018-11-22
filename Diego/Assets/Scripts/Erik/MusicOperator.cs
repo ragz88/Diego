@@ -14,6 +14,7 @@ public class MusicOperator : MonoBehaviour {
     public AudioClip[] Songs;
     int currentSong = 0;
     float volume;
+    public static bool running = false;
 	// Use this for initialization
 	void Start () {
         MusicPlayer = GameObject.FindObjectOfType<MusicOperator>().GetComponent<AudioSource>();
@@ -27,7 +28,7 @@ public class MusicOperator : MonoBehaviour {
         currentSong = SceneManager.GetActiveScene().buildIndex;
         if(MusicPlayer.isPlaying == false)
         {
-            Debug.Log("play song "+ currentSong);
+            //Debug.Log("play song "+ currentSong);
             //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Stop();
             MusicPlayer.clip = Songs[currentSong];
@@ -36,7 +37,7 @@ public class MusicOperator : MonoBehaviour {
         }
         if (MusicPlayer.clip != Songs[currentSong])
         {
-            Debug.Log("play song " + currentSong + " volume is " + volume);
+            //Debug.Log("play song " + currentSong + " volume is " + volume);
             //StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
             //MusicPlayer.Stop();            
             StartCoroutine(MusicOperator.FadeOut(MusicPlayer, fadeOutTime));
@@ -53,6 +54,10 @@ public class MusicOperator : MonoBehaviour {
             
 
         }
+        //else
+        //{
+        //    //StartCoroutine(MusicOperator.FadeIn(MusicPlayer, fadeInTime, volume));
+        //}
 
     }
 
@@ -69,23 +74,36 @@ public class MusicOperator : MonoBehaviour {
     }
     public static IEnumerator FadeOut(AudioSource audioSource, float FadeTime)
     {
-        float startVolume = audioSource.volume;
-        while (audioSource.volume > 0)
+
+        if(!MusicOperator.running)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
-            yield return null;
+          MusicOperator.running = true;
+          float startVolume = audioSource.volume;
+          while (audioSource.volume > 0)
+          {
+              audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+              yield return null;
+          }
+          audioSource.Stop();
+            MusicOperator.running = false;
         }
-        audioSource.Stop();
+
     }
     public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float Volume)
     {
-        audioSource.Play();
-        audioSource.volume = 0f;
-        while (audioSource.volume < Volume)
+        if (!MusicOperator.running)
         {
-            audioSource.volume += Time.deltaTime / FadeTime;
-            yield return null;
+            MusicOperator.running = true;
+            audioSource.Play();
+            audioSource.volume = 0f;
+            while (audioSource.volume < Volume)
+            {
+              audioSource.volume += Time.deltaTime / FadeTime;
+              yield return null;
+            }
+            MusicOperator.running = false;
         }
+     
     }
 
   

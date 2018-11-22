@@ -100,6 +100,7 @@ void Start ()
     {
         if (!loadingNext && other.gameObject.tag == "Player")
         {
+            cancelInitialNoise = true;
             if (MusicPlayer != null)
             {
                 MusicPlayer.fadingOut = true;
