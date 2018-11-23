@@ -82,13 +82,13 @@ public class TitleFade : MonoBehaviour {
 
         }
         if (fadeIn && pressed)
-        {
+        {      FADENUM = 0;
                thingToDestroy.SetActive(false);
                title.color = new Color(title.color.r, title.color.g, title.color.b, title.color.a + (Time.deltaTime * fadeSpeed));
                if (title.color.a >= 1)
                {
                    MusicPlayer.fadingOut = true;
-                   FADENUM = 0;
+                   
                    SceneManager.LoadScene(1);
 
                }
@@ -96,8 +96,10 @@ public class TitleFade : MonoBehaviour {
 
 
 
-            print(FADENUM);
-
+            
         }
+
+        print(FADENUM);
+
     }
 }
