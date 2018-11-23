@@ -25,6 +25,8 @@ public class MovableObjects : MonoBehaviour {
     float initMoveSpeed;
     Vector3 lastPos;
 
+    AudioSource sound;
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,6 +39,7 @@ public class MovableObjects : MonoBehaviour {
         {
             movePoints[i] = moveTransforms[i].position;
         }
+        sound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -67,6 +70,10 @@ public class MovableObjects : MonoBehaviour {
 
         if (isActive && !completedMovement)
         {
+            if (sound.isPlaying == false)
+            {
+                sound.Play();
+            }
             //slow in Slow out code
             if (slowInSlowOut)
             {
@@ -140,10 +147,28 @@ public class MovableObjects : MonoBehaviour {
                 {
                     //transform.position = Vector3.Lerp(transform.position, initPos, (movementSpeed * Time.deltaTime));
                     transform.position = Vector3.MoveTowards(transform.position, initPos, (movementSpeed * Time.deltaTime));
+                    if (sound.isPlaying == false)
+                    {
+                        sound.Play();
+                    }
                 }
                 else
                 {
-                    completedMovement = false; 
+                    completedMovement = false;
+                    if (sound.isPlaying == true)
+                    {
+                        sound.Stop();
+                    }
+                }
+            }
+            else
+            {
+                if (!returnOnInactive)
+                {
+                    if (sound.isPlaying == false)
+                    {
+                        sound.Play();
+                    }
                 }
             }
         }
