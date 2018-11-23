@@ -88,7 +88,8 @@ public class TitleFade : MonoBehaviour {
                if (title.color.a >= 1)
                {
                    MusicPlayer.fadingOut = true;
-                    SceneManager.LoadScene(1);
+                   FADENUM = 0;
+                   SceneManager.LoadScene(1);
 
                }
             
