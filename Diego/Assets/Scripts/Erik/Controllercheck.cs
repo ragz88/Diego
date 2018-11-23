@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Controllercheck : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class Controllercheck : MonoBehaviour
     public Sprite E;
     public Sprite Square;
     public ObjectInteractions diegoInteractions;
+    public bool mainMenu = false;
+    public SpriteRenderer pressToStart;
+    public Sprite pS4;
+    public Sprite pC;
     void Update()
     {
         string[] names = Input.GetJoystickNames();
@@ -20,6 +25,7 @@ public class Controllercheck : MonoBehaviour
             {
                 print("PS4 CONTROLLER IS CONNECTED");
                 PS4_Controller = 1;
+             
             }
         }
 
@@ -28,15 +34,24 @@ public class Controllercheck : MonoBehaviour
         {
             controllerConected = true;
             diegoInteractions.promptPic.sprite = Square;
+            if (mainMenu)
+            {
+                pressToStart.sprite = pS4;
+            }
             //Erik does controller things here
         }
         else
         {
             controllerConected = false;
             diegoInteractions.promptPic.sprite = E;
+            if (mainMenu)
+            {
+                pressToStart.sprite = pC;
+            }
             //There is no controller
         }
 
         PS4_Controller = 0;
     }
+    
 }
