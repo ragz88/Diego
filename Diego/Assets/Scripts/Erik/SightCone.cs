@@ -97,6 +97,7 @@ public class SightCone : MonoBehaviour {
                         {
                             golem.golState = Golem.golemState.Chasing;
                             golem.diegoTarget = rayHit.collider.gameObject;
+                            golem.diegoAnim = golem.diegoTarget.GetComponent<Animator>();
                             golem.initPatrolPos = golem.transform.position;
                             break;
                         }

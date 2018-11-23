@@ -71,6 +71,7 @@ public class Golem: MonoBehaviour {
 
     [HideInInspector]
     public GameObject diegoTarget;
+    public Animator diegoAnim;
     //MoveBehaviour diegoMoveBehav; //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
     public float liftSpeed = 1;
     public float stoppingDistRetPos = 1;
@@ -256,6 +257,8 @@ public class Golem: MonoBehaviour {
                     cage.transform.position = Vector3.Lerp(cage.transform.position, Eye.transform.position, cageSpeed * Time.deltaTime * 5);
                 }
 
+                
+
                 if (!beeper.isPlaying)
                 {
                     beeper.clip = alarm;
@@ -283,12 +286,18 @@ public class Golem: MonoBehaviour {
 
                 //if (Vector3.Distance(energyCubeTarget.transform.position, transform.position) < 15f)   //Change to hide out of sight
                 //{
-                if (Vector3.Distance(diegoTarget.transform.position, transform.position) < 3.3f)
+                if (diegoAnim.enabled == false)
+                {
+                    timeSinceDrop = 0;
+                    golState = golemState.Returning;
+                }
+
+                if (Vector3.Distance(diegoTarget.transform.position, transform.position) < 3.3f && golState != golemState.Returning)
                 {
                     golState = golemState.Lifting;
                     //diegoMoveBehav = diegoTarget.GetComponent<MoveBehaviour>();         //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
                     //diegoMoveBehav.lockMovement = true;                                 //Urgent - Must Repair ////////////////////////////////////////////////////////////////////////////
-                    diegoTarget.GetComponent<Animator>().enabled = false ;
+                    diegoAnim.enabled = false ;
                     agent.SetDestination(transform.position);
                     diegoTarget.GetComponent<Rigidbody>().isKinematic = true;
                 }
@@ -296,6 +305,7 @@ public class Golem: MonoBehaviour {
                 {
                     agent.SetDestination(diegoTarget.transform.position);
                 }
+
                 //}
                 //else
                 //{
