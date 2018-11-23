@@ -13,6 +13,7 @@ public class River : MonoBehaviour {
     TPCEngine.TPCMotor diegoMot;
     public GameObject[] bankColliders;
     bool notswimming = true;
+    float riverForce = 13000f;
 	// Use this for initialization
 	void Start () {
         diegoMot = diegoChar.characterMotor;
@@ -20,10 +21,10 @@ public class River : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(notswimming)
-        {
+        //if(notswimming)
+        //{
          // GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>().runtimeAnimatorController = Animators[0];
-        }
+        //}
         
 	}
     private void OnCollisionExit(Collision collision)
@@ -60,6 +61,19 @@ public class River : MonoBehaviour {
                 other.GetComponent<Animator>().runtimeAnimatorController = Animators[1];
                 other.GetComponent<Animator>().avatar = Diego;
             }
+
+            //print(Vector3.Dot((other.transform.position - transform.position), transform.forward));
+
+            if (Vector3.Dot((other.transform.position - transform.position) , transform.forward) < (-0.25f))
+            {
+                other.GetComponent<Rigidbody>().AddForce(transform.forward*(riverForce* Mathf.Abs(Vector3.Dot((other.transform.position - transform.position), transform.forward))));
+            }
+            else if (Vector3.Dot((other.transform.position - transform.position), transform.forward) > (0.25f))
+            {
+                other.GetComponent<Rigidbody>().AddForce(transform.forward * -(riverForce * Mathf.Abs(Vector3.Dot((other.transform.position - transform.position), transform.forward))));
+            }
+
+            Debug.DrawRay(transform.position, other.transform.position - transform.position, Color.yellow);
 
             for (int i = 0; i < bankColliders.Length; i++)
             {
