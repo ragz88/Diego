@@ -532,6 +532,8 @@ public class Golem: MonoBehaviour {
             {
                 energySource.transform.parent = null;
                 energySource.GetComponent<Rigidbody>().isKinematic = false;
+                energySourceLO.beingCarried = true;
+                energySourceLO = null;
                 energySource = null;
             }
             
