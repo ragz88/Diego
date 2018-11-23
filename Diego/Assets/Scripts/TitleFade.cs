@@ -37,7 +37,7 @@ public class TitleFade : MonoBehaviour {
 	void Update () {
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && (fadeNum == TitleFade.FADENUM))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("ControlJump")) && (fadeNum == TitleFade.FADENUM))
         {
             pressed = true;
 
