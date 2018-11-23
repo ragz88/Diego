@@ -37,7 +37,7 @@ public class TitleFade : MonoBehaviour {
 	void Update () {
 
 
-        if (Input.GetKeyDown(KeyCode.Space) && (fadeNum == TitleFade.FADENUM))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("ControlJump")) && (fadeNum == TitleFade.FADENUM))
         {
             pressed = true;
 
@@ -88,7 +88,8 @@ public class TitleFade : MonoBehaviour {
                if (title.color.a >= 1)
                {
                    MusicPlayer.fadingOut = true;
-                    SceneManager.LoadScene(1);
+                   FADENUM = 0;
+                   SceneManager.LoadScene(1);
 
                }
             
