@@ -35,7 +35,7 @@ public class TitleFade : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+     //print(TitleFade.FADENUM);
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("ControlJump")) && (fadeNum == TitleFade.FADENUM))
         {
@@ -43,7 +43,13 @@ public class TitleFade : MonoBehaviour {
 
         }
 
-            if (isLooping)
+        if ((Input.GetKeyDown("r")))
+        {
+            TitleFade.FADENUM = 0;
+            SceneManager.LoadScene(0); 
+        }
+
+        if (isLooping)
         {
             if(isfaded)
             {
@@ -65,6 +71,7 @@ public class TitleFade : MonoBehaviour {
             }
 
         }
+
         if (fadeOut)
         {
             if(fadeNum == TitleFade.FADENUM)
@@ -74,21 +81,25 @@ public class TitleFade : MonoBehaviour {
               {
               
                   FADENUM++;
-                  //title.enabled = false;
+                    //title.enabled = false;
+                    fadeOut = false;
               }
             }
 
           
 
         }
+
         if (fadeIn && pressed)
-        {      FADENUM = 0;
+        {
+               TitleFade.FADENUM = 0;
                thingToDestroy.SetActive(false);
                title.color = new Color(title.color.r, title.color.g, title.color.b, title.color.a + (Time.deltaTime * fadeSpeed));
                if (title.color.a >= 1)
                {
                    MusicPlayer.fadingOut = true;
-                   
+                  // print(TitleFade.FADENUM);
+
                    SceneManager.LoadScene(1);
 
                }
@@ -99,7 +110,7 @@ public class TitleFade : MonoBehaviour {
             
         }
 
-        print(FADENUM);
+       
 
     }
 }
