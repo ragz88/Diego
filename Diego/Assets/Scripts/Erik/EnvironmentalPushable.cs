@@ -10,6 +10,7 @@ public class EnvironmentalPushable : MonoBehaviour {
     public bool animPlayed = false;
     public bool inRange = false;
     public GameObject[] objectsToActivate;
+    public ParticleSystem clueParts;
     Outline outline;
 
 	// Use this for initialization
@@ -54,6 +55,10 @@ public class EnvironmentalPushable : MonoBehaviour {
             for (int i = 0; i < objectsToActivate.Length; i++)
             {
                 objectsToActivate[i].SetActive(true);
+            }
+            if (clueParts != null)
+            {
+                clueParts.Stop();
             }
             outline.enabled = false;
             Destroy(this);
