@@ -71,6 +71,7 @@ public class Seeker : MonoBehaviour {
     public float alarmVolume = 0.5f;
     float initPitch;
     float initVolume;
+    public bool essentiallyStationary = false;
 
     [HideInInspector]
     public LiftableObject energyCubeTarget;
@@ -144,6 +145,7 @@ public class Seeker : MonoBehaviour {
                 turning = true;
                 agent.speed = turnSpeed;
                 Invoke("stopTurning", 1f);
+
                 if (!beeper.isPlaying || (beeper.clip == alarm && beeper.isPlaying))
                 {
                     beeper.clip = wallBeep;
@@ -168,14 +170,14 @@ public class Seeker : MonoBehaviour {
         }
         else if (seekState == seekerState.Chasing)
         {
-            if (!beeper.isPlaying)
-            {
+            //if (!beeper.isPlaying)
+            //{
                 beeper.clip = alarm;
                 beeper.pitch = 1;
                 beeper.volume = alarmVolume;
                 beeper.Play();
                 beeper.loop = true;
-            }
+            //}
             //Eye.LookAt(energyCubeTarget.transform);
             //eyeRot = Eye.eulerAngles.y;
             //Eye.localEulerAngles = new Vector3(0, eyeRot, 0);

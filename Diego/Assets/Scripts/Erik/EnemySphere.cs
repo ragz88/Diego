@@ -23,12 +23,12 @@ public class EnemySphere : MonoBehaviour {
     void Update () {
         outerSphere.transform.position = Vector3.Lerp(outerSphere.transform.position, sphere.transform.position, sphereAlignSpeed * Time.deltaTime);
         outerSphere.transform.RotateAround(sphere.transform.position, sphere.transform.right, agent.velocity.magnitude * 100 * Time.deltaTime);
-        rollSource.volume = 1;
+        //rollSource.volume = 1;
         if (agent.velocity.magnitude > 0.1f && rollSource.isPlaying == false)
         {
             rollSource.Play();
         }
-        else if (rollSource.isPlaying == true)
+        else if (rollSource.isPlaying == true && agent.velocity.magnitude < 0.1f)
         {
             rollSource.Pause();
         }
