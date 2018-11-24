@@ -52,8 +52,8 @@ public class PauseControl : MonoBehaviour {
         if (paused)
         {
             Panel.SetActive(true);
-            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = false;
             if (PanelIm.color.a < 0.4f)
             {
                 PanelIm.color = new Color(PanelIm.color.r, PanelIm.color.g, PanelIm.color.b, PanelIm.color.a + 0.02f);
