@@ -12,11 +12,13 @@ public class EnvironmentalPushable : MonoBehaviour {
     public GameObject[] objectsToActivate;
     public ParticleSystem clueParts;
     Outline outline;
+    AudioSource sound;
 
 	// Use this for initialization
 	void Start () {
         anim = gameObject.GetComponent<Animator>();
         outline = GetComponent<Outline>();
+        sound = GetComponent<AudioSource>();
         //anim.StopPlayback();
 	}
 	
@@ -37,6 +39,7 @@ public class EnvironmentalPushable : MonoBehaviour {
             outline.enabled = true;
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("Interact")) && !animPlayed)
             {
+                
                 PlayAnim();
             }
         }
@@ -51,6 +54,7 @@ public class EnvironmentalPushable : MonoBehaviour {
         if (!animPlayed)
         {
             animPlayed = true;
+            sound.Play();
             anim.SetBool("playAnim", true);
             for (int i = 0; i < objectsToActivate.Length; i++)
             {
