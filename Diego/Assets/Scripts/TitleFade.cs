@@ -18,6 +18,7 @@ public class TitleFade : MonoBehaviour {
     MusicOperator MusicPlayer;
 	// Use this for initialization
 	void Start () {
+        Cursor.visible = false;
         GameObject musicPlayerTemp = GameObject.FindGameObjectWithTag("Music");
         if (musicPlayerTemp != null)
         {
