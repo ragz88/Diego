@@ -259,14 +259,14 @@ public class Golem: MonoBehaviour {
 
                 
 
-                if (!beeper.isPlaying)
-                {
+                //if (!beeper.isPlaying)
+                //{
                     beeper.clip = alarm;
                     beeper.pitch = 1;
                     beeper.volume = alarmVolume;
                     beeper.Play();
                     beeper.loop = true;
-                }
+                //}
                 //Eye.LookAt(diegoTarget.transform);
                 // = Eye.eulerAngles.y;
                 //Eye.localEulerAngles = new Vector3(0, eyeRot, 0);
