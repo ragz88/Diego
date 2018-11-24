@@ -25,6 +25,14 @@ public class MusicOperator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Time.timeScale = 1;
+
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         currentSong = SceneManager.GetActiveScene().buildIndex;
         if(MusicPlayer.isPlaying == false)
         {
