@@ -37,6 +37,10 @@ public class TitleFade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
      //print(TitleFade.FADENUM);
+        if(Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
 
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("ControlJump")) && (fadeNum == TitleFade.FADENUM))
         {
